@@ -101,13 +101,7 @@ h3. IGV Sessions
 IGV Session:
 An IGV session is available at the link below, which provides visualization of the bam files, snp calls, and indel for huy116. Session was created using IGV 2.0.5.
 
-igv_session.xml
-
-Full Windows path:
-S:\Bioinformatics\analysis\Mak\Mak-2010-01-13_hym\reanalysis\igv_session.xml
-
-Full Mac path:
-/Volumes/core/Bioinformatics/analysis/Mak/Mak-2010-01-13_hym/reanalysis/igv_session.xml
+{% all_links Bioinformatics/analysis/Mak/Mak-2010-01-13_hym/reanalysis/igv_session.xml %}
 
 <div class="note">
 *Note on IGV Session*
