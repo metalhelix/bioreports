@@ -8,10 +8,17 @@ permalink:   /:year-:month-:day_:title.html
 
 baseurl: /
 
+index_pages:
+  category:
+    do_related:     false
+    title_prefix:   'Lab: '
+
 rdiscount:
   extensions: []
 
 exclude: []
+
+category_dir: labs
 
 static:
 - css

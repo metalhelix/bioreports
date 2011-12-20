@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<ul id="toc"></ul>
+<div class="page-header">
+  <h1>{{ page.title }}</h1>
+</div>
+<div id="about">
+  <ul>
+    <li><strong>Researcher:</strong> {{ page.researcher }}</li>
+    <li><strong>PI:</strong> {{ page.pi }}</li>
+    <li><strong>Analyst:</strong> {{ page.analyst }}</li>
+    <li><strong>Date Created:</strong> {{ page.date | date_to_string }}</li>
+  </ul>
+</div>
+<div class="clearfix"></div>
+{{ content }}
+
