@@ -10,23 +10,15 @@ categories:
 
 h2. Objective
 
-<div class="section">
-
 To identify SNPs and indels in wild type and mutant C. elegans samples in order to identify the genotypic modification responsible for transgene de-silencing in hjIs21 mutant known as huy116. Wild Type control sample hjIs21 was used as a reference.
-
-</div>
 
 h2. Generated Data
 
-<div class="section">
 h3. huy116 unique
 
 p(data_link). "huy116 unique snps":data/mak_snp/sample_223b.snps.filtered.unique.short.html
-</div>
 
 h2. Raw Data
-
-<div class="section">
 
 Paired-end data was supplied for both wild type and mutant in the paths below:
 
@@ -48,11 +40,7 @@ Paired-end data was supplied for both wild type and mutant in the paths below:
 
 Trimmed huy116 reads were used, in the same fashion as the original analysis, for data quality issues as described below.
 
-</div>
-
 h2. Data Quality
-
-<div class="section">
 
 Data quality of the raw sequence data was analyzed to ensure downstream analysis is valid. 
 
@@ -68,11 +56,7 @@ The same trimmed sequence files were used from the original analysis.
 
 Statistics were also generated for the quality of the alignment process. Alignment was performed using bwa, with the separate hjIs21 alignments combined into hjIs21_all for variant analysis (described below).
 
-</div>
-
 h2. Methods
-
-<div class="section">
 
 Sequences were first aligned using bwa (v0.5.9-r16), aligning each lane separately and then combining the paired-end reads using the bwa sampe tool. Reads were aligned using the ce ws210 reference genome from Ensembl, downloaded from Illumina’s igenome ftp server. The output of the alignment process was a bam file for each set of paired-end reads. Duplicate reads that could be caused by amplification artifacts were removed using samtools rmdup. Then, the multiple hjIs21 bam files were then combined using samtools merge. After which, the picard (v1.49) toolset was utilized to prepare the bam files for SNP calling. Specifically, picard’s AddOrReplaceReadGroups utility was used to normalize the read groups contained in the bam files to a single group. Also, picard’s ReorderSam tool was used to ensure the bam reads were in the correct order for processing with GATK.
 
@@ -90,11 +74,7 @@ bwa -e 23 --flail T -in /n/analysis/mak/1_1_fastq.gz
 
 </div>
 
-</div>
-
 h2. Analysis
-
-<div class="section">
 
 h3. IGV Sessions
 
@@ -114,11 +94,7 @@ The reference genome used for this analysis is not built into the default set of
 * Select open with the ce_ws210.genome file selected. This should add it to your IGV browser.
 </div>
 
-</div>
-
 h2. SNP & Indel Analysis
-
-<div class="section">
 
 The new variant pipeline calls SNPs and indels on the wild type and mutant reads separately. Post-processing  is then used to extract variants only found in the mutant sample. The statistics below provide information for all wild type variants, all mutant variants, variants unique to just mutant – excluding those also found in wild type, and variants unique to just the wild type sample.
 

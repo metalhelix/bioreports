@@ -19,6 +19,9 @@ $(document).ready(function() {
     "bSort": true,
     "bInfo": false
   });
+  $('h2').each(function(index) {
+    $(this).nextUntil('h2').wrapAll('<div class="section" />');
+  });
   $('#main h2').append("  <span class='header_accent'><a href='#' class='toggle'>hide</a></span>");
   $('.section_toggle').append("  <span class='header_accent'><a href='#' class='toggle'>show</a></span>");
   $('a.toggle').click(function() 
