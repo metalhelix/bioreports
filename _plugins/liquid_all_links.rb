@@ -26,5 +26,5 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag('all_links', Jekyll::AllLinks)
+Liquid::Template.register_tag('file_links', Jekyll::AllLinks)
 
