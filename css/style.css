@@ -50,8 +50,16 @@ img {
   margin: auto;
 }
 
+img.small {
+  width: 300px;
+}
+
 img.medium {
   width: 600px;
+}
+
+img.large {
+  width: 900;
 }
 
 blockquote {
@@ -65,4 +73,6 @@ code {
 footer p {
   text-align: center;
 }
+
+.collapsed { display: none; }
 
