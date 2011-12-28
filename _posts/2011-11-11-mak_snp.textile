@@ -10,7 +10,10 @@ categories:
 
 h2. Objective
 
+{% data_link data/mak_snp/sample_223b.snps.filtered.unique.short.csv %}
+
 To identify SNPs and indels in wild type and mutant C. elegans samples in order to identify the genotypic modification responsible for transgene de-silencing in hjIs21 mutant known as huy116. Wild Type control sample hjIs21 was used as a reference.
+
 
 {% table tsv %}
 	42B1	67A1
