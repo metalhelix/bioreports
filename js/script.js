@@ -5,8 +5,14 @@ $(document).ready(function() {
       startLevel: 2,
       depth: 3
     });
+
+  var options = {
+    additionalFilterTriggers: [$('#quickfind')],
+    clearFiltersControls: [$('#cleanfilters')]
+  };
+
     
-  $('.big_table').tableFilter();
+  $('.big_table').tableFilter(options);
   
   $('.data_table').dataTable( {
     "bPaginate": false,

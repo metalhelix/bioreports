@@ -13,8 +13,11 @@ module Jekyll
       self.data_source = data_source
 
       self.process(@name)
+
       self.read_yaml(File.join(base, '_layouts'), "#{config['data_layout']}.html")
       self.content = TableBuilder.build_from_file data_source, {:class => 'big_table'}
+      self.data['layout'] = 'data'
+      #self.data['data_source'] = data_source.gsub(context.registers[:site].source, "")
     end
   end
 end
