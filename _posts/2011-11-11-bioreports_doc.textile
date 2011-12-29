@@ -1,0 +1,199 @@
+---
+layout: report
+title: Using BioReports
+analyst: jfv
+researcher: bio
+pi: bio
+categories: 
+- bio
+---
+
+h2. Data
+
+h3. External File Links
+
+For adding links to a file path for all supported operating systems. Use the @file_links@ tag like so:
+
+<pre>{_% file_links [UNIX/PATH/TO/FILE] %} </pre>
+
+For example:
+
+<pre>{_% file_links /n/facility/Bioinformatics/analysis/Mak/Mak-2010-01-13_hym/reanalysis/igv_session.xml %} </pre>
+
+Produces: 
+
+{% file_links /n/facility/Bioinformatics/analysis/Mak/Mak-2010-01-13_hym/reanalysis/igv_session.xml %}
+
+Also, should work on directories:
+
+{% file_links /n/projects/jfv/collab %}
+
+Currently works on the following root paths:
+
+{% highlight bash %}
+/n/facility
+/n/projects
+/n/data1
+/n/analysis
+{% endhighlight %}
+
+h3. Local Data Files
+
+Local data links can be created for files in your report's @data/@ directory.
+
+Use the @data_link@ tag to create a new page for this csv or tsv file. This tag also adds a button to access the data in your report:
+
+<pre>{_% data_link data/mak_snp/sample_223b.snps.filtered.unique.short.csv %}</pre>
+
+Produces:
+
+{% data_link data/mak_snp/sample_223b.snps.filtered.unique.short.csv %}
+
+
+h2. Tables
+
+The @table@ tag embeds a pretty table in your report with the data following this tag. Use @endtable@ to indicate the end of your data set. The @table@ tag has a input that can either be @tsv@ or @csv@ to specify the type of input data you are using.
+
+h3. A Tab Separated Table
+
+This table is generated from text copied and pasted from Excel:
+
+<pre>
+{_% table tsv %}
+	42B1	67A1
+Total Number of Mutations found	428	559
+Intergenic mutations	201	290
+intronic mutations	134	188
+exonic mutations	93	81
+synonymous mutations	28	25
+nonsense mutations	5	2
+missense/exonic mutations	55	67
+{_% endtable %}
+</pre>
+
+Generates:
+
+{% table tsv %}
+	42B1	67A1
+Total Number of Mutations found	428	559
+Intergenic mutations	201	290
+intronic mutations	134	188
+exonic mutations	93	81
+synonymous mutations	28	25
+nonsense mutations	5	2
+missense/exonic mutations	55	67
+{% endtable %}
+
+h3. A CSV Table
+
+Similarly, for @csv@ input, you would use:
+
+<pre>
+{_% table csv %}
+Sample, hjIs21 all, hjIs21 unique, huy116 all, huy116 unique
+Total SNPS, 1238, 233, 175, 599
+Intergenic,  570,  127,  792,  274 
+Synonymous, 164,  27,  173,  61 
+Non-Synonymous, 321, 69, 330, 106
+{_% endtable %}
+</pre>
+
+Which creates:
+
+{% table csv %}
+Sample, hjIs21 all, hjIs21 unique, huy116 all, huy116 unique
+Total SNPS, 1238, 233, 175, 599
+Intergenic,  570,  127,  792,  274 
+Synonymous, 164,  27,  173,  61 
+Non-Synonymous, 321, 69, 330, 106
+{% endtable %}
+
+
+h3. A Raw HTML Table
+
+You can also use raw html, just using the appropriate classes:
+
+{% highlight html %}
+<table class="basic_table display">
+<thead>
+<tr><td>Path</td><td>Sample</td></tr>
+</thead>
+<tbody>
+<tr><td>/n/analysis/Mak/hym/Mak-2010-12-10/429GDAAXX/s_1_1_sequence.txt.gz </td><td> hjls21_1 Read 1 </td>
+</tbody>
+</table>
+{% endhighlight %}
+
+Makes:
+
+<table class="basic_table display">
+<thead>
+<tr><td>Path</td><td>Sample</td></tr>
+</thead>
+<tbody>
+<tr><td>/n/analysis/Mak/hym/Mak-2010-12-10/429GDAAXX/s_1_1_sequence.txt.gz </td><td> hjls21_1 Read 1 </td>
+</tbody>
+</table>
+
+h2. Images
+
+Images are defined by providing the path to the image in the @imgs@ directory, surrounded by @!@. You can provide a size option (@small@, @medium@, @large@). Here is an example:
+
+{% highlight html %}
+!(medium)imgs/mak_snp/per_base_quality.png!
+{% endhighlight %}
+
+Makes:
+
+!(medium)imgs/mak_snp/per_base_quality.png!
+
+{% highlight html %}
+!(small)imgs/mak_snp/bad_reads.png!
+{% endhighlight %}
+
+Creates:
+
+!(small)imgs/mak_snp/bad_reads.png!
+
+h2. Methods
+
+Sequences were first aligned using bwa (v0.5.9-r16), aligning each lane separately and then combining the paired-end reads using the bwa sampe tool. Reads were aligned using the ce ws210 reference genome from Ensembl, downloaded from Illumina’s igenome ftp server. The output of the alignment process was a bam file for each set of paired-end reads. Duplicate reads that could be caused by amplification artifacts were removed using samtools rmdup. Then, the multiple hjIs21 bam files were then combined using samtools merge. After which, the picard (v1.49) toolset was utilized to prepare the bam files for SNP calling. Specifically, picard’s AddOrReplaceReadGroups utility was used to normalize the read groups contained in the bam files to a single group. Also, picard’s ReorderSam tool was used to ensure the bam reads were in the correct order for processing with GATK.
+
+The GATK Unified Genotyper (v1.1.10) was used for SNP and Indel calling. Local realignment was performed initially using GATK as recommended by their best practices for variant detection. SNP and indel calling was performed on the locally realigned bam file for both hjIs21 and huy116 samples. Filtering was performed to remove variants with low coverage. The SNPs and indels were then annotated using snpEff(v1.9.5). Custom scripts were then used to mange and group the annotated variants.
+
+h3(section_toggle details). Technical Details
+
+<div class="details section collapsed">
+
+{% highlight bash %}
+# bwa location /path/to/bwa/bwa
+bwa -e 23 --flail T -in /n/analysis/mak/1_1_fastq.gz
+# GATK vs 1.1.10
+{% endhighlight %}
+
+</div>
+
+h2. Custom Divs
+
+Sections can be distinguished from the rest of the report by surrounding them with a classed div. For example, the @note@ class could be used like this:
+
+{% highlight html %}
+<div class="note">
+*NOTE*
+...
+</div>
+{% endhighlight %}
+
+To produce something like this:
+
+<div class="note">
+*Note on IGV Session*
+
+The reference genome used for this analysis is not built into the default set of IGV genomes as of version 2.0.5. For this reason, it will be necessary to add the ws210 c. elegans genome to your IGV browser. Steps for doing this are provided below
+
+* With IGV open, select File -> Load Genome
+* Navigate to the custom genome path:
+** S:\Bioinformatics\analysis\Mak\Mak-2010-01-13_hym\reanalysis\ce_ws210.genome
+* Select open with the ce_ws210.genome file selected. This should add it to your IGV browser.
+</div>
+
