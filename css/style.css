@@ -8,6 +8,24 @@ li {
   color: #404040;
 }
 
+header {
+  height: 35px;
+  width: 100%;
+  display:block;
+  background-color: #222;
+  color: white;
+}
+
+.brand {
+  float: right;
+  display: block;
+  padding: 8px 20px 12px;
+  color: white;
+  font-size: 20px;
+  font-weight: 200;
+  line-height: 1;
+}
+
 span.header_accent {
   font-size: 12px;
 }
@@ -19,7 +37,7 @@ span.header_accent {
 	padding: 10px 10px 10px 20px;
 	background: #FDF5D9;
 	border: solid 1px #FCEEC1;
-	margin: 0 0 10px 0;
+	margin: 5px 0 10px 0;
 }
 
 #about {
