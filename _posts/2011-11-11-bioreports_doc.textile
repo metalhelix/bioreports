@@ -47,11 +47,11 @@ Local data links can be created for files in your report's @data/@ directory.
 
 Use the @data_link@ tag to create a new page for this csv or tsv file. This tag also adds a button to access the data in your report:
 
-<pre>{_% data_link data/mak_snp/sample_223b.snps.filtered.unique.short.csv %}</pre>
+<pre>{_% data_link data/demo_data/sample_223b.snps.filtered.unique.short.csv %}</pre>
 
 Produces:
 
-{% data_link data/mak_snp/sample_223b.snps.filtered.unique.short.csv %}
+{% data_link data/demo_data/sample_223b.snps.filtered.unique.short.csv %}
 
 
 h2. Tables
@@ -141,41 +141,23 @@ Makes:
 
 h2. Images
 
-Images are defined by providing the path to the image in the @imgs@ directory, surrounded by @!@. You can provide a size option (@small@, @medium@, @large@). Here is an example:
+Images are defined by providing the path to the image in the @data@ directory, surrounded by @!@. You can provide a size option (@small@, @medium@, @large@). Here is an example:
 
 {% highlight html %}
-!(medium)imgs/mak_snp/per_base_quality.png!
+!(medium)data/demo_data/per_base_quality.png!
 {% endhighlight %}
 
 Makes:
 
-!(medium)imgs/mak_snp/per_base_quality.png!
+!(medium)data/demo_data/per_base_quality.png!
 
 {% highlight html %}
-!(small)imgs/mak_snp/bad_reads.png!
+!(small)data/demo_data/bad_reads.png!
 {% endhighlight %}
 
 Creates:
 
-!(small)imgs/mak_snp/bad_reads.png!
-
-h2. Methods
-
-Sequences were first aligned using bwa (v0.5.9-r16), aligning each lane separately and then combining the paired-end reads using the bwa sampe tool. Reads were aligned using the ce ws210 reference genome from Ensembl, downloaded from Illumina’s igenome ftp server. The output of the alignment process was a bam file for each set of paired-end reads. Duplicate reads that could be caused by amplification artifacts were removed using samtools rmdup. Then, the multiple hjIs21 bam files were then combined using samtools merge. After which, the picard (v1.49) toolset was utilized to prepare the bam files for SNP calling. Specifically, picard’s AddOrReplaceReadGroups utility was used to normalize the read groups contained in the bam files to a single group. Also, picard’s ReorderSam tool was used to ensure the bam reads were in the correct order for processing with GATK.
-
-The GATK Unified Genotyper (v1.1.10) was used for SNP and Indel calling. Local realignment was performed initially using GATK as recommended by their best practices for variant detection. SNP and indel calling was performed on the locally realigned bam file for both hjIs21 and huy116 samples. Filtering was performed to remove variants with low coverage. The SNPs and indels were then annotated using snpEff(v1.9.5). Custom scripts were then used to mange and group the annotated variants.
-
-h3(section_toggle details). Technical Details
-
-<div class="details section collapsed">
-
-{% highlight bash %}
-# bwa location /path/to/bwa/bwa
-bwa -e 23 --flail T -in /n/analysis/mak/1_1_fastq.gz
-# GATK vs 1.1.10
-{% endhighlight %}
-
-</div>
+!(small)data/demo_data/bad_reads.png!
 
 h2. Custom Divs
 
@@ -201,3 +183,16 @@ The reference genome used for this analysis is not built into the default set of
 * Select open with the ce_ws210.genome file selected. This should add it to your IGV browser.
 </div>
 
+h2. Toggle Divs
+
+h3(section_toggle details). Technical Details
+
+<div class="details section collapsed">
+
+{% highlight bash %}
+# bwa location /path/to/bwa/bwa
+bwa -e 23 --flail T -in /n/analysis/mak/1_1_fastq.gz
+# GATK vs 1.1.10
+{% endhighlight %}
+
+</div>

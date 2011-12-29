@@ -1,0 +1,52 @@
+---
+layout: report
+title: Table Examples
+analyst: jfv
+researcher: bio
+pi: bio
+categories: 
+- biocore
+---
+
+
+h2. TSV table with 3 columns & 2 headers
+
+{% table tsv %}
+	42B1	67A1
+Total Number of Mutations found	428	559
+Intergenic mutations	201	290
+intronic mutations	134	188
+exonic mutations	93	81
+synonymous mutations	28	25
+nonsense mutations	5	2
+missense/exonic mutations	55	67
+{% endtable %}
+
+h2. TSV with missing Data
+
+{% table tsv %}
+Probe Set ID	hym8b_HG-U133_Plus_2.mas5-Signal	hym8a_HG-U133_Plus_2.mas5-Signal	hym7b_HG-U133_Plus_2.mas5-Signal
+211380_s_at	534.7817	523.6346	502.0462
+224825_at	1647.977	1641.439	1338.229
+		9.032416619	8.971676322
+		10.68074542	10.3861093
+
+{% endtable %}
+
+
+h2. Many columned TSV Table
+
+{% table tsv %}
+Chrom	Position	Reference	Change	ChangeType	Quality	Coverage	GeneID	GeneName	BioType	TranscriptID	Effect	igv_link
+I	232657	*	-C	DEL	254.36	24	Y48G1BM.6	Y48G1BM.6	protein_coding	Y48G1BM.6	INTRON	chrI:232657
+I	232663	*	#NAME?	INS	395.8	21	Y48G1BM.6	Y48G1BM.6	protein_coding	Y48G1BM.6	INTRON	chrI:232663
+I	237821	*	#NAME?	DEL	161.14	22	Y48G1BM.6	Y48G1BM.6	protein_coding	Y48G1BM.6	FRAME_SHIFT: Y48G1BM.6	chrI:237821
+I	318215	*	#NAME?	INS	198.25	9					INTERGENIC	chrI:318215
+I	1042130	*	#NAME?	DEL	53.71	9	Y34D9A.7	Y34D9A.7	protein_coding	Y34D9A.8b;Y34D9A.7	INTRON;INTRON	chrI:1042130
+I	1059784	*	#NAME?	INS	94.95	18	Y34D9A.10	vps-4	protein_coding	Y34D9A.10.2;Y34D9A.10.1	INTRON;INTRON	chrI:1059784
+I	1074826	*	+C	INS	185.94	9	R06A10.2	gsa-1	protein_coding	R06A10.2.1	UTR_3_PRIME: 480 bases from CDS	chrI:1074826
+I	1146689	*	#NAME?	INS	362.76	12	Y48G8AL.10	Y48G8AL.10	protein_coding	Y48G8AL.10	INTRON	chrI:1146689
+I	1417711	*	#NAME?	DEL	45.33	22	Y92H12BR.3	Y92H12BR.3	protein_coding	Y92H12BR.3a;Y92H12BR.3b	INTRON;INTRON	chrI:1417711
+I	1580678	*	#NAME?	DEL	503.97	13					INTERGENIC	chrI:1580678
+I	1696290	*	#NAME?	INS	249.76	17					INTERGENIC	chrI:1696290
+{% endtable %}
