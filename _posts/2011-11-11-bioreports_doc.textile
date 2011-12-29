@@ -5,10 +5,14 @@ analyst: jfv
 researcher: bio
 pi: bio
 categories: 
-- bio
+- biocore
 ---
 
 h2. Data
+
+h3. Note
+
+The code below uses @{_%@ as the start of the tag for links, etc. However, it should really be just @{@ and @%@ without the @_@ in between. This was done to prevent BioReports from trying to parse these tags and render the contents.
 
 h3. External File Links
 
