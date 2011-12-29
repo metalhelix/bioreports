@@ -6,9 +6,12 @@ module Jekyll
     def initialize(site, base, dir, data_source, config)
       @site = site
       @base = base
-      @dir = dir
-      @name = File.basename(data_source).split(".")[0..-2].join(".") + ".html"
 
+      @name = File.basename(data_source, File.extname(File.basename(data_source))) + ".html"
+      dirs = File.dirname(data_source).split('/')
+      subdir = dirs.size > 1 ? dirs[-1] : ""
+
+      @dir = File.join(dir, subdir)
       self.link_path = File.join(@dir, @name)
       self.data_source = data_source
 
