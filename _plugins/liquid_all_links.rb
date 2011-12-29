@@ -2,13 +2,13 @@ module Jekyll
   class AllLinks < Liquid::Tag
 
     ROOTS = { "facility" =>
-                  {:win => "sgc-core\\core", :mac => "sgc-core.sgc.loc/core", :nix => "n/facility"},
+                  {:win => "sgc-core\\core", :mac => "sgc-core.sgc.loc/core", :nix => "n/facility", :web => "bioinfo/n/facility"},
               "analysis" =>
-                  {:win => "dm3\\solexa-analysis", :mac => "dm3.sgc.loc/solexa-analysis", :nix => "n/analysis"},
+                  {:win => "dm3\\solexa-analysis", :mac => "dm3.sgc.loc/solexa-analysis", :nix => "n/analysis", :web => "bioinfo/n/analysis"},
               "data1" =>
-                  {:win => "dm3\\data1", :mac => "dm3.sgc.loc/data1", :nix => "n/data1"},
+                  {:win => "dm3\\data1", :mac => "dm3.sgc.loc/data1", :nix => "n/data1", :web => "bioinfo/n/data1"},
               "projects" =>
-                  {:win => "sgc-projects\\projects", :mac => "sgc-projects.sgc.loc/projects", :nix => "n/projects"}
+                  {:win => "sgc-projects\\projects", :mac => "sgc-projects.sgc.loc/projects", :nix => "n/projects", :web => "bioinfo/n/projects"}
     }
 
 
@@ -61,7 +61,8 @@ module Jekyll
       windows_path = @given_path.gsub("/",'\\')
       unix_path = @given_path
       mac_path = @given_path
-      output = "<ul class=\"unstyled\">\n"
+      web_path = @given_path
+      output = "<div class=\"all-links\"><ul class=\"unstyled\">\n"
       output += "<li><span class=\"label\">Windows</span> "
       output += "<a href=\"file:///\\\\#{ROOTS[dir][:win]}/#{windows_path}\">\\\\#{ROOTS[dir][:win]}\\#{windows_path}</a></li>\n"
       output += "<li><span class=\"label\">UNIX</span>       "
@@ -69,7 +70,9 @@ module Jekyll
       output += "<li><span class=\"label\">Mac</span>        "
 
       output += "<a href=\"smb://#{ROOTS[dir][:mac]}/#{mac_path}\">smb://#{ROOTS[dir][:mac]}/#{mac_path}</a></li>\n"
-      output += "</ul>\n"
+      output += "<li><span class=\"label\">Web</span>       "
+      output += "<a href=\"http://#{ROOTS[dir][:web]}/#{web_path}\">#{ROOTS[dir][:web]}/#{web_path}</a></li>\n"
+      output += "</ul></div>\n"
       output
     end
 
