@@ -28,6 +28,7 @@ static:
 - _includes
 - _plugins
 - _config.yml
+- favicon.ico
 
 reports_dir: _posts
 
