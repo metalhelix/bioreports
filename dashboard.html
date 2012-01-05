@@ -28,6 +28,6 @@ title:
 
 <h1>Labs</h1>
 {% for category in site.categories %}
-<li><a href="/{{ site.category_dir }}/{{ category[0] | replace:' ', '-' | downcase  }}">{{ category[0] }}</a></li>
+<li><a href="categories/{{ site.category_dir }}/{{ category[0] | replace:' ', '-' | downcase  }}">{{ category[0] }}</a></li>
 {% endfor %}
 
