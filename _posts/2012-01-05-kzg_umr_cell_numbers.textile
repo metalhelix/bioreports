@@ -14,8 +14,6 @@ h2. Objective
 
 RNA-seq data has been generated from libraries constructed with variable amounts of starting RNA: 10ng, 100ng, and 1000ng (1ug) were used to construct 3 libraries. These libraries were sequenced on two lanes each to increase the number of reads for each sample. This analysis looks at how similar expression values are for data generated from these various starting amounts.
 
-Test
-
 h2. Data
 
 h3. Data Sources
