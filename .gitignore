@@ -3,3 +3,9 @@ _site/*
 coverage/*
 ._*
 **/.-*
+_posts/*
+!_posts/2011-11-11-bioreports_doc.textile
+!_posts/2012-01-01-table_examples.textile
+data/*
+!data/demo_data/*
+
