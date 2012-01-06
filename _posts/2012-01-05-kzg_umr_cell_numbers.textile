@@ -93,7 +93,7 @@ First, we look at the level of coverage for exon and genes in the samples. We de
 
 !(medium)data/kzg_umr_cell_numbers/percent_exons_covered.png!
 
-{% table tsv %}
+{% table tsv  class = simple %}
 UMR_10ng	UMR_100ng	UMR_1ug
 54.58%	60.27%	60.67%
 {% endtable %}
@@ -130,7 +130,7 @@ Next, we looked at the correlation between the expression values for the various
 
 !(medium)data/kzg_umr_cell_numbers/correlation_plot_samples.png!
 
-{% table tsv %}
+{% table tsv class = grid %}
 	UMR_10ng	UMR_100ng	UMR_1ug
 UMR_10ng	100%	97%	82%
 UMR_100ng	97%	100%	92%
@@ -142,7 +142,7 @@ We can also look at the correlation of the log of the expression values. Below i
 
 !(medium)data/kzg_umr_cell_numbers/correlation_plot_log2_samples.png!
 
-{% table tsv %}
+{% table tsv class = grid %}
 	UMR_10ng	UMR_100ng	UMR_1ug
 UMR_10ng	100%	88%	88%
 UMR_100ng	88%	100%	89%
