@@ -93,6 +93,23 @@ img.large {
   width: 900;
 }
 
+table.simple {
+  width: auto;
+  margin: auto;
+}
+
+table.grid {
+  width: auto;
+  margin: auto;
+  border: 1px solid #ddd;
+}
+
+table.grid th, table.grid td {
+  padding:0 5px 0 5px;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
 blockquote {
   color: #777;
 }
