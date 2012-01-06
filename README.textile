@@ -1,0 +1,49 @@
+h1. BioReports
+
+Jekyll template for shared report generation.
+
+h2. What is BioReports?
+
+This is a Jekyll site framework meant to be used in conjunction with a "Custom version of Jekyll":https://github.com/vlandham/jekyll and "Hastie":https://github.com/vlandham/hastie - a command line tool for quick report creation.
+
+h2. How to use?
+
+Clone this repository to a location accessible by all people who need to make reports.
+
+<pre>
+git clone git@github.com:vlandham/hastie.git /shared/drive/location/bioreports_source
+</pre>
+
+Create a @server@ branch of the BioReports repository
+
+<pre>
+git branch server
+git checkout server
+</pre>
+
+Modify the @.gitignore@ in the server branch to remove exclusions of @_posts/@ and @data@.
+
+Modify @_config.yml@ and @_server_config.yml@ as you see fit.
+
+Add more plugins or javascript or css.
+
+Ensure you have the forked version of Jekyll accessible to all report creators.
+
+<pre>
+which jekyll
+# /shared/gems/custom/jekyll
+</pre>
+
+Ensure you have Hastie accessible to all report creators.
+
+Create @.hastie@ files for all users to point to @bioreports_source@ location.
+
+<pre>
+hastie config /shared/drive/location/bioreports_source
+</pre>
+
+Now when you use @hastie publish@ it should publish to your @bioreports_source@ directory which will in turn update your @bioreports@ page.
+
+Enjoy!
+
+
