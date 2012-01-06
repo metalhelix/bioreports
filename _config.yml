@@ -13,12 +13,13 @@ index_pages:
     do_related:     false
     title_prefix:   'Lab: '
 
+category_dir: labs
+
 rdiscount:
   extensions: []
 
 exclude: []
 
-category_dir: labs
 
 static:
 - css
