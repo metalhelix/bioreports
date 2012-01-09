@@ -219,7 +219,7 @@ h3. A Raw HTML Table
 You can also use raw html, just using the appropriate classes:
 
 {% highlight html %}
-<table class="basic_table display">
+<table class="simple">
 <thead>
 <tr><td>Path</td><td>Sample</td></tr>
 </thead>
