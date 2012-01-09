@@ -16,14 +16,16 @@ $(document).ready(function() {
   
   $('.data_table').dataTable( {
     "bPaginate": false,
-    "bSort": true
+    "bSort": true,
+    "aaSorting": []
   });
   $('.basic_table').dataTable( {
     "bPaginate": false,
     "bLengthChange": false,
     "bFilter": false,
     "bSort": true,
-    "bInfo": false
+    "bInfo": false,
+    "aaSorting": []
   });
 
   // wrap contents below h2's in div.section to 
