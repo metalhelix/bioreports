@@ -8,17 +8,87 @@ categories:
 - biocore
 ---
 
+h2. Textile Basics
+
+BioReport reports are built using a markup language called "Textile". This markup is then converted to html when the report is published. While we could write our reports in straight html, report creation would become very tedious, very quickly. Using Textile (along with some custom components as described below) allows us to create attractive, complex reports with a minimal amount of markup. 
+
+This document itself was created in Textile "View its source here":https://raw.github.com/vlandham/bioreports/master/_posts/2011-11-11-bioreports_doc.textile .
+
+For a full description of all that Textile can do, see the "Textile Reference from RedCloth":http://redcloth.org/textile (RedCloth is the ruby gem BioReports uses to render the Textile files).
+
+Here, we review the most useful of Textile's markup
+
+h2. Headers
+
+Headers separate different sections of your report. Create a header by using the following notation:
+
+<pre>
+ h#. Header Text
+</pre>
+
+Where @#@ is a number, from 1 - 6. Example:
+
+<pre>
+ h3. Sub-Heading
+</pre>
+
+Produces:
+
+h3. Sub-Heading
+
+<div class="note">
+Use @h2.@ headers for first level sections and @h3.@ headers for sub-sections.
+</div>
+
+h2. Images
+
+Images are defined by providing the path to the image in the @data@ directory, surrounded by @!@. You can provide a size option (@small@, @medium@, @large@). Here is an example:
+
+{% highlight html %}
+!(medium)data/demo_data/per_base_quality.png!
+{% endhighlight %}
+
+Makes:
+
+!(medium)data/demo_data/per_base_quality.png!
+
+{% highlight html %}
+!(small)data/demo_data/bad_reads.png!
+{% endhighlight %}
+
+Creates:
+
+!(small)data/demo_data/bad_reads.png!
+
+You can add a link to the image by adding a @:@ to the end of the image url and then providing the link. For example, an image that links to itself can be created using:
+
+{% highlight html %}
+!(small)data/demo_data/bad_reads.png:data/demo_data/bad_reads.png!
+{% endhighlight %}
+
+Which will create:
+
+!(small)data/demo_data/bad_reads.png:data/demo_data/bad_reads.png!
+
+h2. Other Useful Markup
+
+Checkout the documentation's pages on "bolding and italics":http://redcloth.org/textile/phrase-modifiers/ , as well as "lists":http://redcloth.org/textile/page-layout/#bullet-lists for other markup you will probably want to use.
+
 h2. Data
 
 h3. Note
 
 The code below uses @{_%@ as the start of the tag for links, etc. However, it should really be just @{@ and @%@ without the @_@ in between. This was done to prevent BioReports from trying to parse these tags and render the contents.
 
+These tags that are surrounded by the bracket and percent sign are known as *liquid tags*. Liquid tags allow BioReports to add more complicated functionality to pages, as they can be used to call ruby scripts or provide for other modifications. If you are interested, checkout some of the "default liquid tags":https://github.com/shopify/liquid/wiki/liquid-for-designers you can use. Below, we cover custom BioReports liquid tags that will be used frequently during report creation.
+
 h3. External File Links
 
 For adding links to a file path for all supported operating systems. Use the @file_links@ tag like so:
 
-<pre>{_% file_links [UNIX/PATH/TO/FILE] %} </pre>
+<pre>
+ {_% file_links [UNIX/PATH/TO/FILE] %}
+</pre>
 
 For example:
 
@@ -119,15 +189,30 @@ The default table style looks pretty good - but is not appropriate for all table
 Try @class = grid@, like this:
 
 <pre>
-{_% table tsv, class = grid %}
+{_% table tsv class = grid %}
+	UMR_10ng	UMR_100ng	UMR_1ug
+UMR_10ng	100%	97%	82%
+UMR_100ng	97%	100%	92%
+UMR_1ug	82%	92%	100%
 {_% endtable %}
 </pre>
 
 Which produces this:
-{% table tsv, class = grid %}
+{% table tsv class = grid %}
+	UMR_10ng	UMR_100ng	UMR_1ug
+UMR_10ng	100%	97%	82%
+UMR_100ng	97%	100%	92%
+UMR_1ug	82%	92%	100%
 {% endtable %}
 
+h4. Class option:
 
+Right now, tables can have the following classes, in addition to the default, fancy class:
+
+* @grid@
+* @simple@
+
+More classes can be added easily, for different styling options.
 
 h3. A Raw HTML Table
 
@@ -155,25 +240,6 @@ Makes:
 </tbody>
 </table>
 
-h2. Images
-
-Images are defined by providing the path to the image in the @data@ directory, surrounded by @!@. You can provide a size option (@small@, @medium@, @large@). Here is an example:
-
-{% highlight html %}
-!(medium)data/demo_data/per_base_quality.png!
-{% endhighlight %}
-
-Makes:
-
-!(medium)data/demo_data/per_base_quality.png!
-
-{% highlight html %}
-!(small)data/demo_data/bad_reads.png!
-{% endhighlight %}
-
-Creates:
-
-!(small)data/demo_data/bad_reads.png!
 
 h2. Custom Divs
 
