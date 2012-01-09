@@ -17,12 +17,18 @@ $(document).ready(function () {
   d3.json('/reports.json', function(data) {
     
     // console.log(data);
+    //
+    var analysts = {};
 
     data.forEach(function(r) {
+      analysts[r.analyst] = 1;
       // console.log(r.id););
       // console.log(r.date);
       // console.log(format.parse(r.date).getDay());
     });
+
+    analysts['unknown'] = 1;
+    analysts = d3.keys(analysts);
 
     var max_date = d3.max(data, function(d) { return format.parse(d.date); });
     var min_date = d3.min(data, function(d) { return format.parse(d.date); });
@@ -32,14 +38,14 @@ $(document).ready(function () {
     max_date = max_date.setTime(max_date.getTime() + diff_date / 4);
     min_date = min_date.setTime(min_date.getTime() - diff_date / 4);
 
-
-
     var time_scale = d3.time.scale().domain([min_date, max_date]).range([0, w]);
     var time_tick_format = time_scale.tickFormat(10);
 
     var color = d3.scale.category10();
 
-    var y_scale = d3.scale.ordinal().range([0 + padding * 2, h - padding]);
+
+    var y_scale = d3.scale.ordinal().domain(analysts).rangePoints([0 + padding,  h - padding * 2]);
+
 
     var time_ticks_g = vis.append("g");
 
@@ -47,11 +53,11 @@ $(document).ready(function () {
       .data(time_scale.ticks(10))
       .enter().append("g")
       .attr("class", "time_rule")
-      .attr("transform", function(d) { return "translate(" + time_scale(d) + ", 0)";});
+      .attr("transform", function(d) { return "translate(" + time_scale(d) + ", " + padding + ")";});
 
     time_ticks.append("line")
-      .attr("y1", -5)
-      .attr("y2", h - 10)
+      .attr("y1", 0)
+      .attr("y2", h - padding)
       .attr("stroke", "#ddd");
 
     time_ticks.append("text")
@@ -59,18 +65,18 @@ $(document).ready(function () {
       .attr("text-anchor", "middle")
       .text(function(d){return time_tick_format(d)});
 
-    var reports_g = vis.append("g");
+    var reports_g = vis.append("g")
+      .attr("transform", "translate(" + padding + ", " + padding + ")");
 
     var reports = reports_g.selectAll(".report_group")
       .data(data)
       .enter().append("g")
       .attr("class", "report_group")
-      .attr("transform", function(d) { return "translate(" + time_scale(format.parse(d.date)) + ", " + padding + ")";});
+      .attr("transform", function(d) { return "translate(" + time_scale(format.parse(d.date)) + ", " + y_scale(d.analyst) + ")";});
 
     reports.append("circle")
-      .attr("y", function(d) { return y_scale(d.analyst); })
-      .attr("r", 4)
-      .attr("fill", function(d) { return color(d.analyst); });
+      .attr("r", 6)
+      .attr("fill", function(d) {  return color(d.analyst); });
   });
 
 });
