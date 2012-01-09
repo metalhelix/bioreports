@@ -1,0 +1,17 @@
+---
+layout: nil
+---
+[
+ {% for post in site.posts %}
+ { 
+ "id":"bioreports{{ post.id }}",
+ "title":"{{ post.title }}",
+ "link":"http://bioreports/{{ post.url }}",
+ "date":"{{ post.date | date: "%Y-%m-%d %H:%M"}}",
+ "analyst":"{{ post.analyst }}",
+ "pi":"{{ post.pi }}",
+ "researcher":"{{ post.researcher }}",
+ "num":{{ forloop.index }}
+ }{% unless forloop.last %},{% endunless %}
+ {% endfor %}
+]
