@@ -60,15 +60,15 @@ Creates:
 
 !(small)data/demo_data/bad_reads.png!
 
-You can add a link to the image by adding a @:@ to the end of the image url and then providing the link. For example, an image that links to itself can be created using:
+You can add a link to the image by adding a @:@ to the end of the image url, after the closing @!@, and then providing the link. For example, an image that links to itself can be created using:
 
 {% highlight html %}
-!(small)data/demo_data/bad_reads.png:data/demo_data/bad_reads.png!
+!(small)data/demo_data/per_base_quality.png!:data/demo_data/per_base_quality.png
 {% endhighlight %}
 
 Which will create:
 
-!(small)data/demo_data/bad_reads.png:data/demo_data/bad_reads.png!
+!(small)data/demo_data/per_base_quality.png!:data/demo_data/per_base_quality.png
 
 h2. Other Useful Markup
 
