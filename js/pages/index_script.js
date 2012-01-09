@@ -76,7 +76,7 @@ $(document).ready(function () {
 
     reports.append("circle")
       .attr("r", 6)
-      .attr("fill", function(d) {  return color(d.analyst); });
+      .attr("fill", function(d) {  return color(d.pi); });
   });
 
 });
