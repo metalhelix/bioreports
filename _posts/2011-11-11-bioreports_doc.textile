@@ -112,6 +112,22 @@ Synonymous, 164,  27,  173,  61
 Non-Synonymous, 321, 69, 330, 106
 {% endtable %}
 
+h3. Styling Tables
+
+The default table style looks pretty good - but is not appropriate for all table types. You can specify a set of classes to apply to the table, which can then be used to style the table, by using the @class = @ 
+
+Try @class = grid@, like this:
+
+<pre>
+{_% table tsv, class = grid %}
+{_% endtable %}
+</pre>
+
+Which produces this:
+{% table tsv, class = grid %}
+{% endtable %}
+
+
 
 h3. A Raw HTML Table
 
