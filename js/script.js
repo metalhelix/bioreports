@@ -12,6 +12,28 @@ $(document).ready(function() {
     clearFiltersControls: [$('#cleanfilters')]
   };
 
+  $('a#copy-table').zclip({
+    path:'/js/libs/ZeroClipboard.swf',
+    copy:function(){
+      var output = "";
+      var valid_rows = $('.big_table tr').filter(function(index) {
+        var row = $(this);
+        return row.attr("filtermatch") != "false" && row.attr("class") != "filters";
+      });
+      valid_rows.each(function(index) {
+        $(this).children().each(function(in2) {
+          if(in2 != 0) 
+        {
+          output += "\t";
+        }
+          output += $(this).text();
+        });
+        output += "\n";
+      });
+      return output;
+    }
+  });
+
   $('.big_table').tableFilter(options);
   
   $('.data_table').dataTable( {
@@ -19,6 +41,7 @@ $(document).ready(function() {
     "bSort": true,
     "aaSorting": []
   });
+
   $('.basic_table').dataTable( {
     "bPaginate": false,
     "bLengthChange": false,
@@ -47,5 +70,6 @@ $(document).ready(function() {
       $(this).text(text);
       return false;
     });
+
 });
 
