@@ -93,9 +93,19 @@ img.large {
   width: 900;
 }
 
+table th, table td {
+  text-align: right;
+  border-right: 1px solid #DDD;
+}
+
+
 table.simple {
   width: auto;
   margin: auto;
+}
+
+table.simple th, table.simple td {
+  text-align:center;
 }
 
 table.grid {
