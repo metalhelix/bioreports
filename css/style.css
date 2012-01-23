@@ -106,6 +106,8 @@ table td {
 table.simple {
   width: auto;
   margin: auto;
+  border-left: none;
+  border-right:none;
 }
 
 table.simple th, table.simple td {
