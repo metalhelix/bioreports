@@ -93,7 +93,11 @@ img.large {
   width: 900;
 }
 
-table th, table td {
+table thead td, table thead th {
+  text-align: center;
+}
+
+table td {
   text-align: right;
   border-right: 1px solid #DDD;
 }
