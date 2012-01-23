@@ -106,12 +106,12 @@ table td {
 table.simple {
   width: auto;
   margin: auto;
-  border-left: none;
-  border-right:none;
 }
 
 table.simple th, table.simple td {
   text-align:center;
+  border-left: none;
+  border-right:none;
 }
 
 table.grid {
