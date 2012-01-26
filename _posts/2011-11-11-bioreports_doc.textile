@@ -6,6 +6,8 @@ researcher: bio
 pi: bio
 categories: 
 - biocore
+data:
+- data/bioreports_doc
 ---
 
 h2. Textile Basics
@@ -97,6 +99,18 @@ You can also specify what class to apply to the image. The syntax is demonstrate
 {% image_link per_base_quality.png class = small %}
 
 Note that @image_link@ creates an image that links to the full-sized image. 
+
+If an image cannot be found in the data directory for this report, you should see:
+
+{% image_link invalid.png class = small %}
+
+h2. Image Grid
+
+{% image_grid 1 %}
+1.png
+2.png
+3.png
+{% endimage_grid %}
 
 h2. Other Useful Markup
 
