@@ -104,13 +104,6 @@ If an image cannot be found in the data directory for this report, you should se
 
 {% image_link invalid.png class = small %}
 
-h2. Image Grid
-
-{% image_grid 1 %}
-1.png
-2.png
-3.png
-{% endimage_grid %}
 
 h2. Other Useful Markup
 
