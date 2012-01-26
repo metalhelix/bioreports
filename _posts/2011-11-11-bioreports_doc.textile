@@ -36,6 +36,10 @@ Produces:
 
 h3. Sub-Heading
 
+-----
+
+*NOTE*
+
 <div class="note">
 Use @h2.@ headers for first level sections and @h3.@ headers for sub-sections.
 </div>
@@ -45,30 +49,54 @@ h2. Images
 Images are defined by providing the path to the image in the @data@ directory, surrounded by @!@. You can provide a size option (@small@, @medium@, @large@). Here is an example:
 
 {% highlight html %}
-!(medium)data/demo_data/per_base_quality.png!
+!(medium)data/bioreports_doc/per_base_quality.png!
 {% endhighlight %}
 
 Makes:
 
-!(medium)data/demo_data/per_base_quality.png!
+!(medium)data/bioreports_doc/per_base_quality.png!
 
-{% highlight html %}
-!(small)data/demo_data/bad_reads.png!
-{% endhighlight %}
+<pre>
+!(small)data/bioreports_doc/bad_reads.png!
+</pre>
 
 Creates:
 
-!(small)data/demo_data/bad_reads.png!
+!(small)data/bioreports_doc/bad_reads.png!
 
 You can add a link to the image by adding a @:@ to the end of the image url, after the closing @!@, and then providing the link. For example, an image that links to itself can be created using:
 
-{% highlight html %}
-!(small)data/demo_data/per_base_quality.png!:data/demo_data/per_base_quality.png
-{% endhighlight %}
+<pre>
+!(small)data/bioreports_doc/per_base_quality.png!:data/bioreports_doc/per_base_quality.png
+</pre>
 
 Which will create:
 
-!(small)data/demo_data/per_base_quality.png!:data/demo_data/per_base_quality.png
+!(small)data/bioreports_doc/per_base_quality.png!:data/bioreports_doc/per_base_quality.png
+
+h3. Image Shortcut
+
+You can use the @image_link@ liquid tag to create a link to an image. With this tag, you provide just the image name (excluding the relative path to the image). @image_link@ uses the data folder naming convention specified by bioreports to figure out where the image is.
+
+*Example:*
+
+<pre>
+{_% image_link per_base_quality.png %}
+</pre>
+
+Produces:
+
+{% image_link per_base_quality.png %}
+
+You can also specify what class to apply to the image. The syntax is demonstrated in this next example:
+
+<pre>
+{_% image_link per_base_quality.png class = small %}
+</pre>
+
+{% image_link per_base_quality.png class = small %}
+
+Note that @image_link@ creates an image that links to the full-sized image. 
 
 h2. Other Useful Markup
 
@@ -117,11 +145,11 @@ Local data links can be created for files in your report's @data/@ directory.
 
 Use the @data_link@ tag to create a new page for this csv or tsv file. This tag also adds a button to access the data in your report:
 
-<pre>{_% data_link data/demo_data/sample_223b.snps.filtered.unique.short.csv %}</pre>
+<pre>{_% data_link data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv %}</pre>
 
 Produces:
 
-{% data_link data/demo_data/sample_223b.snps.filtered.unique.short.csv %}
+{% data_link data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv %}
 
 
 h2. Tables
