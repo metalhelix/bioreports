@@ -48,11 +48,17 @@ Use @h2.@ headers for first level sections and @h3.@ headers for sub-sections.
 
 h2. Images
 
-Images are defined by providing the path to the image in the @data@ directory, surrounded by @!@. You can provide a size option (@small@, @medium@, @large@). Here is an example:
+Images are defined by providing the path to the image in the @data@ directory, surrounded by @!@. You can provide one of the following size classes:
+* @thumb@ - 150px wide
+* @small@ - 300px wide
+* @medium@ - 600px wide
+* @large@ - 900px wide
 
-{% highlight html %}
+Here are some examples:
+
+<pre>
 !(medium)data/bioreports_doc/per_base_quality.png!
-{% endhighlight %}
+</pre>
 
 Makes:
 
@@ -103,6 +109,7 @@ Note that @image_link@ creates an image that links to the full-sized image.
 If an image cannot be found in the data directory for this report, you should see:
 
 {% image_link invalid.png class = small %}
+
 
 
 h2. Other Useful Markup
@@ -299,6 +306,70 @@ The reference genome used for this analysis is not built into the default set of
 ** S:\Bioinformatics\analysis\Mak\Mak-2010-01-13_hym\reanalysis\ce_ws210.genome
 * Select open with the ce_ws210.genome file selected. This should add it to your IGV browser.
 </div>
+
+h2. Image Grid
+
+The @image_grid@ tag can be used to create a table of images. With no additional parameters, @image_grid@ puts each image provided in its own column:
+
+<pre>
+{_% image_grid %}
+1.png
+2.png
+3.png
+{_% endimage_grid %}
+</pre>
+
+{% image_grid %}
+1.png
+2.png
+3.png
+{% endimage_grid %}
+
+You can also specify how many columns the grid should be made out of:
+
+<pre>
+{_% image_grid 1 %}
+1.png
+2.png
+3.png
+{_% endimage_grid %}
+</pre>
+
+{% image_grid 1 %}
+1.png
+2.png
+3.png
+{% endimage_grid %}
+
+The @thumb@ class is applied to the images inside the image grid by default. use the @class =@ option to specify what class to apply to the images.
+
+<pre>
+{_% image_grid 2 class = medium %}
+1.png
+2.png
+3.png
+{_% endimage_grid %}
+</pre>
+
+{% image_grid 2 class = small %}
+1.png
+2.png
+3.png
+{% endimage_grid %}
+
+<pre>
+{_% image_grid class = small %}
+1.png
+2.png
+3.png
+{_% endimage_grid %}
+</pre>
+
+{% image_grid class = small %}
+1.png
+2.png
+3.png
+{% endimage_grid %}
 
 h2. Toggle Divs
 

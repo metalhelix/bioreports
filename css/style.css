@@ -81,6 +81,10 @@ img {
   margin: auto;
 }
 
+img.thumb {
+  width: 150px;
+}
+
 img.small {
   width: 300px;
 }
@@ -90,7 +94,7 @@ img.medium {
 }
 
 img.large {
-  width: 900;
+  width: 900px;
 }
 
 table thead td, table thead th {
@@ -99,9 +103,11 @@ table thead td, table thead th {
 
 table td {
   text-align: right;
-  border-right: 1px solid #DDD;
 }
 
+table.display td {
+  border-right: 1px solid #DDD;
+}
 
 table.simple {
   width: auto;
@@ -124,6 +130,10 @@ table.grid th, table.grid td {
   padding:0 5px 0 5px;
   border-right: 1px solid #ddd;
   border-top: 1px solid #ddd;
+}
+
+table.image-grid td {
+  border:none;
 }
 
 blockquote {
