@@ -26,8 +26,6 @@ module Jekyll
         puts "ERROR: invalid input for image_grid"
         puts text
       end
-      puts "OPTIONS"
-      puts @options.inspect
     end
 
     def render(context)
