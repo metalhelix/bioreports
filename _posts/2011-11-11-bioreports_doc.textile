@@ -371,6 +371,12 @@ The @thumb@ class is applied to the images inside the image grid by default. use
 3.png
 {% endimage_grid %}
 
+Invalid Image
+
+{% image_grid class = small %}
+invalid.png
+{% endimage_grid %}
+
 h2. Toggle Divs
 
 h3(section_toggle details). Technical Details

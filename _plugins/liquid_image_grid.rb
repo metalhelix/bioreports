@@ -78,7 +78,7 @@ module Jekyll
           image_url = nil
         end
       end
-      image_url
+      image_url ||= "imgs/missing.png"
     end
   end
 end
