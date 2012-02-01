@@ -32,7 +32,7 @@ module Jekyll
       images = get_images(super, context)
       @options[:col] ||= images.size
 
-      output = "<div><table class=\"image-grid\">"
+      output = "<notextile><div><table class=\"image-grid\">"
 
       images.each_slice(@options[:col]).each do |row_images|
         output += "<tr>"
@@ -41,7 +41,7 @@ module Jekyll
         end
         output += "</tr>"
       end
-      output += "</table></div>"
+      output += "</table></div></notextile>"
       output
     end
 

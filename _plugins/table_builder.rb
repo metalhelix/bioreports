@@ -35,7 +35,7 @@ module Jekyll
     def self.build_html_table data, options
       table_class = options[:class] || "data_table display"
       header = data.shift
-      output = "<table class=\"#{table_class}\">"
+      output = "<notextile><table class=\"#{table_class}\">"
       output += "<thead><tr>"
       output += '<th>' + header.join('</th><th>') + '</th>'
       output += "</tr></thead>"
@@ -46,7 +46,7 @@ module Jekyll
         output += "</tr>"
       end
       output += "</tbody>"
-      output += "</table>"
+      output += "</table></notextile>"
       output
     end
 
