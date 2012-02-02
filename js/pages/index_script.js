@@ -3,13 +3,17 @@ $(document).ready(function () {
   var w = 900;
   var h = 300;
   var padding = 20;
+  var padding_bottom = 10;
+  var padding_left = 20;
   var format = d3.time.format("%Y-%m-%d %H:%M");
+
+  var y_scale;
 
   var vis = d3.select("#vis")
     .append("svg")
     .attr("id", "vis-svg")
-    .attr("width", w + padding * 2)
-    .attr("height", h + padding * 2)
+    .attr("width", w + padding * 2 + padding_left)
+    .attr("height", h + padding * 2 + padding_bottom)
     .append("g")
     .attr("transform", "translate(" + padding + "," + padding + ")");
 
@@ -44,7 +48,7 @@ $(document).ready(function () {
     var color = d3.scale.category10();
 
 
-    var y_scale = d3.scale.ordinal().domain(analysts).rangePoints([0 + padding,  h - padding * 2]);
+    y_scale = d3.scale.ordinal().domain(analysts).rangePoints([0 + padding,  h - padding * 2]);
 
 
     var time_ticks_g = vis.append("g");
@@ -61,7 +65,7 @@ $(document).ready(function () {
       .attr("stroke", "#ddd");
 
     time_ticks.append("text")
-      .attr("y", h)
+      .attr("y", h )
       .attr("text-anchor", "middle")
       .text(function(d){return time_tick_format(d)});
 
@@ -76,7 +80,23 @@ $(document).ready(function () {
 
     reports.append("circle")
       .attr("r", 6)
-      .attr("fill", function(d) {  return color(d.pi); });
+      .attr("fill", function(d) {  return color(d.pi); })
+      .on("mouseover", showDetails)
+      .on("mouseout", hideDetails);
+
   });
+
+  function showDetails(data,i) {
+    vis.append("text")
+      .attr("id", "mouseover-text")
+      .attr("y", y_scale(data.analyst) + padding)
+      .attr("x", -(padding_left / 2))
+      .text(data.analyst);
+
+  }
+
+  function hideDetails(d,i) {
+    vis.select("#mouseover-text").remove();
+  }
 
 });
