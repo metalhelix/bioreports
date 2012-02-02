@@ -12,8 +12,18 @@ index_pages:
   category:
     do_related:     false
     title_prefix:   'Lab: '
+  analyst:
+    do_related:     false
+    pluralize:      false
+    title_prefix:   'Analyst: '
+  researcher:
+    do_related:     false
+    pluralize:      false
+    title_prefix:   'Researcher: '
 
 category_dir: labs
+analyst_dir: analyst
+researcher_dir: researcher
 
 rdiscount:
   extensions: []

@@ -4,7 +4,7 @@ module Jekyll
   class GenericPageTypeIndex < Page
     attr_accessor :page_type
 
-    def initialize(site, base, dir, page, page_type, config)
+    def initialize(site, base, dir, page, page_type, subpages, config)
       @page_type = page_type
       @site = site
       @base = base
@@ -14,6 +14,7 @@ module Jekyll
       self.process(@name)
       self.read_yaml(File.join(base, '_layouts'), "#{config['index_page']}.html")
       self.data[@page_type] = page
+      self.data['sub_pages'] = subpages.sort {|a,b| b <=> a}
 
       if config['do_related']
         self.data[config['related_key']] = []
@@ -69,16 +70,27 @@ module Jekyll
           'index_page'  => "#{page_type}_index",
           'list_page'   => "#{page_type}_list",
           'page_dir'    => "#{page_type}_dir",
+          'pluralize'    => true,
           'related_key' => "related"
         }){ |key, v1, v2| v1 }
 
         dir = site.config[config['page_dir']] || ::Inflection.plural(page_type)
 
-        page_types = site.send ::Inflection.plural(page_type)
+        #puts site.posts.collect{|p| p.data}
+
+        page_types = nil
+        if config['pluralize']
+          page_types = site.post_data[::Inflection.plural(page_type)]
+        else
+          page_types = site.post_data[page_type]
+        end
+
 
         if page_types && site.layouts.key?(config['index_page'])
           page_types.keys.each do |page|
-            write_index(site, File.join(dir, page.gsub(/\s/, "-").gsub(/[^\w-]/, '').downcase), page, page_type, config)
+            sub_pages = page_types[page]
+
+            write_index(site, File.join(dir, page.gsub(/\s/, "-").gsub(/[^\w-]/, '').downcase), page, page_type, sub_pages, config)
           end
         end
 
@@ -88,8 +100,8 @@ module Jekyll
       end
     end
 
-    def write_index(site, dir, page, page_type, config)
-      index = GenericPageTypeIndex.new(site, site.source, dir, page, page_type, config)
+    def write_index(site, dir, page, page_type, pages, config)
+      index = GenericPageTypeIndex.new(site, site.source, dir, page, page_type, pages, config)
       index.render(site.layouts, site.site_payload)
       index.write(site.dest)
       site.static_files << index

@@ -26,8 +26,25 @@ title:
   </tbody>
 </table>
 
-<h1>Labs</h1>
-{% for category in site.categories %}
-<li><a href="/{{ site.category_dir }}/{{ category[0] | replace:' ', '-' | downcase  }}">{{ category[0] }}</a></li>
-{% endfor %}
+<div class="row">
+  <div class="span5 offset1">
+    <h1>Researchers</h1>
+    {% for researcher in site.post_data["researcher"] %}
+    <li><a href="/{{ site.researcher_dir }}/{{ researcher[0] | replace:' ', '-' | downcase  }}">{{ researcher[0] }}</a></li>
+    {% endfor %}
+  </div>
 
+  <div class="span5">
+    <h1>Labs</h1>
+    {% for category in site.categories %}
+    <li><a href="/{{ site.category_dir }}/{{ category[0] | replace:' ', '-' | downcase  }}">{{ category[0] }}</a></li>
+    {% endfor %}
+  </div>
+
+  <div class="span5">
+    <h1>Analysts</h1>
+    {% for analyst in site.post_data["analyst"] %}
+    <li><a href="/{{ site.analyst_dir }}/{{ analyst[0] | replace:' ', '-' | downcase  }}">{{ analyst[0] }}</a></li>
+    {% endfor %}
+  </div>
+</div>
