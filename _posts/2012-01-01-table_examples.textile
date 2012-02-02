@@ -22,6 +22,47 @@ nonsense mutations	5	2
 missense/exonic mutations	55	67
 {% endtable %}
 
+h2. TSV table with commas
+
+{% table tsv %}
+% Pass Filter	Total # Reads	# Reads (PF)
+87.4	7418018	 6,483,385.12 
+88.34	7766810	 -6,861,020.34 
+86.65	7999095	 6,931,128.44 
+87.16	8458021	 7,371,927.89 
+87.2	7269373	 6,338,887.12 
+87.35	7652536	 6,684,737.33 
+86.59	12102959	 10,480,140.45 
+87.53	12662426	 11,083,671 
+{% endtable %}
+
+h2. TSV table with percents
+
+{% table tsv %}
+Unique Reads ( E. coli)	% Unique Reads (E. coli)
+ 3,074,812 	47%
+ 113,653 	22%
+ 3,225,032 	47%
+ 498,516 	7%
+ 521,279 	7%
+ 75,599 	1%
+ 117,844 	2%
+ 78,254 	1%
+{% endtable %}
+
+h2. TSV table with e values
+
+{% table tsv %}
+gene_id	fpkm wt SSID	fpkm wt WRT54G	fpkm tgs1 R2D2	counts wt ALPHA1	counts wt DED22	counts tgs1 RU2	counts tgs1 PP671
+SPP21E7.07	1.94695e-12	2.94695E-13	27.8058	1838	1911	1823	1920
+SPSRNA.14	2.94695e-12	5.94695E-8	15.4358	16	21	68	535348
+LR_unknown_997	3.94695e-12	2.94695e-12	11.7674	19	30	455348	7127
+SPRNA.213	4.94695e-7	2.94695e-12	8.93507	13	11	28	57
+SPRNA.106	2.94695e-12	2.94695e-12	4.78337	9	18	34	44
+SPNCA.272	2.94695e-12	2.94695e-12	3.41819	7	10	19	21
+LTR_unknown_3387	2.94695e-12	2.94695e-12	1.78127	5	8	49	19
+{% endtable %}
+
 h2. TSV with missing Data
 
 {% table tsv %}
