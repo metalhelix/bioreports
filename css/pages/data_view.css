@@ -1,0 +1,22 @@
+
+
+.data_grid_page_links {
+  padding-top: 10px;
+}
+
+a.data_grid_page_link {
+  padding: 3px 5px 3px 5px;
+  background-color: #e2e2e2;
+  margin-right: 2px;
+  text-decoration: none;
+}
+
+a.data_grid_page_link:hover {
+  text-decoration: none;
+  color: black;
+}
+
+.data_grid_page_links .current {
+  color: black;
+  background-color: #FFCA5A;
+}
