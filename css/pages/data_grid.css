@@ -1,5 +1,4 @@
 
-
 .data_grid_page_links {
   padding-top: 10px;
 }
@@ -8,7 +7,9 @@ a.data_grid_page_link {
   padding: 3px 5px 3px 5px;
   background-color: #e2e2e2;
   margin-right: 2px;
+  margin-top: 5px;
   text-decoration: none;
+  float:left;
 }
 
 a.data_grid_page_link:hover {
