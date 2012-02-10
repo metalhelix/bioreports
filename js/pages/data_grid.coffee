@@ -1,3 +1,8 @@
+
+picnet = {}
+picnet.ui = {}
+picnet.ui.filter = {}
+
 `/**
  * @constructor
  */

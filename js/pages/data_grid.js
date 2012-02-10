@@ -1,4 +1,9 @@
 (function() {
+  var DataGrid, picnet, root;
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  picnet = {};
+  picnet.ui = {};
+  picnet.ui.filter = {};
   /**
  * @constructor
  */
@@ -285,8 +290,6 @@ picnet.ui.filter.FilterState = function(id, value, idx, type) {
  */
 picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + this.id + '] value[' + this.value + '] idx[' + this.idx + '] type[' + this.type + ']'; };
 ;
-  var DataGrid, root;
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   DataGrid = (function() {
     function DataGrid() {
       this.refresh = __bind(this.refresh, this);
