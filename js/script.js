@@ -34,6 +34,25 @@ $(document).ready(function() {
     }
   });
 
+  $('a#copy_data_grid').zclip({
+    path:'/js/libs/ZeroClipboard.swf',
+    copy:function(){
+      var output = "";
+      var valid_rows = $('#data_grid_data tr');
+      valid_rows.each(function(index) {
+        $(this).children().each(function(in2) {
+          if(in2 != 0) 
+        {
+          output += "\t";
+        }
+          output += $(this).text();
+        });
+        output += "\n";
+      });
+      return output;
+    }
+  });
+
   $('.big_table').tableFilter(options);
   
   $('.data_table').dataTable( {
