@@ -156,7 +156,7 @@ footer p {
 
 .collapsed { display: none; }
 
-a#copy-table {
+a.copy {
   margin-top: 5px;
   float: right;
   clear:right;
