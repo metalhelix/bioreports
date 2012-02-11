@@ -314,6 +314,20 @@ class DataGrid
       @options = this.init_options()
     @options
 
+  change_column_display: (column_id) =>
+    console.log(@filtered_data.length)
+    grid_rows = @grid_body.selectAll("tr")
+    column_extent = d3.extent(@filtered_data, (d) -> parseFloat(d3.values(d)[column_id]))
+    console.log(column_extent)
+    width = d3.scale.linear().domain(column_extent).range(1, 20)
+    grid_rows.each (d) ->
+      value = parseFloat(d3.values(d)[column_id])
+      d3.select(this).select("td").append("td").append("div").style("width",width(value)).style("background-color", "black")
+      console.log(value)
+      
+
+    # grid_rows.each (d) -> console.log(this)
+
   create_view: (id, data, options) =>
     grid = d3.select(id).append("table")
       .attr("id", "data_grid_table")
@@ -324,8 +338,13 @@ class DataGrid
     grid_titles = grid_header.append("tr")
     grid_filters = grid_header.append("tr").attr("class", "filters")
 
-    for header in header_data
-      grid_titles.append("th").text(header)
+    grid_titles.selectAll("th")
+      .data(header_data).enter()
+      .append("th").text((d) -> d)
+      .append("span").attr("class", "data_grid_display_select").append("a")
+        .attr("href", "#")
+        .text("x")
+        .on("click", (d,i) => this.change_column_display(i))
 
     @filters = grid_filters.selectAll("td")
       .data(header_data).enter()
@@ -340,7 +359,7 @@ class DataGrid
   refresh_view: (data, options) =>
     header_data = this.header(data)
 
-    grid_rows = @grid_body.selectAll("tr").remove()
+    @grid_body.selectAll("tr").remove()
 
     grid_rows = @grid_body.selectAll("tr")
       .data(data)
@@ -464,13 +483,13 @@ class DataGrid
   refresh: () =>
     options = this.get_options()
     data = @original_data
-    data = this.filter(data,options)
-    this.sort(data,options)
+    @filtered_data = this.filter(data,options)
+    this.sort(@filtered_data,options)
     if options.page_top
-      this.create_view_pagination("#data_grid_pagination_top", data, options)
+      this.create_view_pagination("#data_grid_pagination_top", @filtered_data, options)
     if options.page_bottom
-      this.create_view_pagination("#data_grid_pagination_bottom", data, options)
-    page_data = this.limit(data, options)
+      this.create_view_pagination("#data_grid_pagination_bottom", @filtered_data, options)
+    page_data = this.limit(@filtered_data, options)
     this.refresh_view(page_data, options)
 
   start_refresh_timer: () =>

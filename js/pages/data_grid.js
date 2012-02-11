@@ -311,6 +311,7 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       this.create_view_pagination = __bind(this.create_view_pagination, this);
       this.refresh_view = __bind(this.refresh_view, this);
       this.create_view = __bind(this.create_view, this);
+      this.change_column_display = __bind(this.change_column_display, this);
       this.get_options = __bind(this.get_options, this);
       this.init_options = __bind(this.init_options, this);      this.filters = [];
       this.search = new picnet.ui.filter.SearchEngine();
@@ -335,18 +336,36 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       return this.options;
     };
 
+    DataGrid.prototype.change_column_display = function(column_id) {
+      var column_extent, grid_rows, width;
+      console.log(this.filtered_data.length);
+      grid_rows = this.grid_body.selectAll("tr");
+      column_extent = d3.extent(this.filtered_data, function(d) {
+        return parseFloat(d3.values(d)[column_id]);
+      });
+      console.log(column_extent);
+      width = d3.scale.linear().domain(column_extent).range(1, 20);
+      return grid_rows.each(function(d) {
+        var value;
+        value = parseFloat(d3.values(d)[column_id]);
+        d3.select(this).select("td").append("td").append("div").style("width", width(value)).style("background-color", "black");
+        return console.log(value);
+      });
+    };
+
     DataGrid.prototype.create_view = function(id, data, options) {
-      var grid, grid_filters, grid_header, grid_titles, header, header_data, _i, _len,
+      var grid, grid_filters, grid_header, grid_titles, header_data,
         _this = this;
       grid = d3.select(id).append("table").attr("id", "data_grid_table");
       header_data = this.header(data);
       grid_header = grid.append("thead");
       grid_titles = grid_header.append("tr");
       grid_filters = grid_header.append("tr").attr("class", "filters");
-      for (_i = 0, _len = header_data.length; _i < _len; _i++) {
-        header = header_data[_i];
-        grid_titles.append("th").text(header);
-      }
+      grid_titles.selectAll("th").data(header_data).enter().append("th").text(function(d) {
+        return d;
+      }).append("span").attr("class", "data_grid_display_select").append("a").attr("href", "#").text("x").on("click", function(d, i) {
+        return _this.change_column_display(i);
+      });
       this.filters = grid_filters.selectAll("td").data(header_data).enter().append("td").append("input").attr("id", function(d, i) {
         return "filter_" + i;
       }).attr("type", "text").style("width", "95%").on("input", function(d) {
@@ -358,7 +377,7 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
     DataGrid.prototype.refresh_view = function(data, options) {
       var grid_row, grid_rows, header, header_data, _i, _len, _results;
       header_data = this.header(data);
-      grid_rows = this.grid_body.selectAll("tr").remove();
+      this.grid_body.selectAll("tr").remove();
       grid_rows = this.grid_body.selectAll("tr").data(data);
       grid_row = grid_rows.enter().append("tr");
       _results = [];
@@ -486,15 +505,15 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       var data, options, page_data;
       options = this.get_options();
       data = this.original_data;
-      data = this.filter(data, options);
-      this.sort(data, options);
+      this.filtered_data = this.filter(data, options);
+      this.sort(this.filtered_data, options);
       if (options.page_top) {
-        this.create_view_pagination("#data_grid_pagination_top", data, options);
+        this.create_view_pagination("#data_grid_pagination_top", this.filtered_data, options);
       }
       if (options.page_bottom) {
-        this.create_view_pagination("#data_grid_pagination_bottom", data, options);
+        this.create_view_pagination("#data_grid_pagination_bottom", this.filtered_data, options);
       }
-      page_data = this.limit(data, options);
+      page_data = this.limit(this.filtered_data, options);
       return this.refresh_view(page_data, options);
     };
 
