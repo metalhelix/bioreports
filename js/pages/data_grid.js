@@ -1,9 +1,13 @@
 (function() {
-  var DataGrid, picnet, root;
-  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  var DataGrid, picnet, root,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
   picnet = {};
+
   picnet.ui = {};
+
   picnet.ui.filter = {};
+
   /**
  * @constructor
  */
@@ -290,8 +294,12 @@ picnet.ui.filter.FilterState = function(id, value, idx, type) {
  */
 picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + this.id + '] value[' + this.value + '] idx[' + this.idx + '] type[' + this.type + ']'; };
 ;
+
   DataGrid = (function() {
+
     function DataGrid() {
+      this.end_refresh_timer = __bind(this.end_refresh_timer, this);
+      this.start_refresh_timer = __bind(this.start_refresh_timer, this);
       this.refresh = __bind(this.refresh, this);
       this.show = __bind(this.show, this);
       this.header = __bind(this.header, this);
@@ -306,7 +314,9 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       this.get_options = __bind(this.get_options, this);
       this.init_options = __bind(this.init_options, this);      this.filters = [];
       this.search = new picnet.ui.filter.SearchEngine();
+      this.timer = null;
     }
+
     DataGrid.prototype.init_options = function() {
       var options;
       options = {};
@@ -316,16 +326,18 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       options.sort = getURLParameter('sort') || null;
       options.page_top = getURLParameter('page_top') || false;
       options.page_bottom = getURLParameter('page_bottom') || true;
+      options.timer_interval = getURLParameter('timer_interval') || 800;
       return options;
     };
+
     DataGrid.prototype.get_options = function() {
-      if (!this.options) {
-        this.options = this.init_options();
-      }
+      if (!this.options) this.options = this.init_options();
       return this.options;
     };
+
     DataGrid.prototype.create_view = function(id, data, options) {
-      var grid, grid_filters, grid_header, grid_titles, header, header_data, _i, _len;
+      var grid, grid_filters, grid_header, grid_titles, header, header_data, _i, _len,
+        _this = this;
       grid = d3.select(id).append("table").attr("id", "data_grid_table");
       header_data = this.header(data);
       grid_header = grid.append("thead");
@@ -337,11 +349,12 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       }
       this.filters = grid_filters.selectAll("td").data(header_data).enter().append("td").append("input").attr("id", function(d, i) {
         return "filter_" + i;
-      }).attr("type", "text").style("width", "95%").on("input", __bind(function(d) {
-        return this.refresh();
-      }, this));
+      }).attr("type", "text").style("width", "95%").on("input", function(d) {
+        return _this.start_refresh_timer();
+      });
       return this.grid_body = grid.append("tbody");
     };
+
     DataGrid.prototype.refresh_view = function(data, options) {
       var grid_row, grid_rows, header, header_data, _i, _len, _results;
       header_data = this.header(data);
@@ -357,13 +370,14 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       }
       return _results;
     };
+
     DataGrid.prototype.create_view_pagination = function(id, data, options) {
-      var current_page, max_pages, min_pages, page_range, pages, pagination, _i, _results;
+      var current_page, max_pages, min_pages, page_range, pages, pagination, _i, _results,
+        _this = this;
       page_range = 20;
       current_page = options.page;
       min_pages = 1;
       max_pages = data.length === 0 ? 1 : Math.ceil(data.length / options.limit);
-      console.log([min_pages, max_pages]);
       pagination = d3.select(id).attr("class", "data_grid_page_links");
       pages = pagination.selectAll("a").remove();
       pages = pagination.selectAll("a").data((function() {
@@ -383,18 +397,18 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
         }
       }).text(function(d) {
         return "" + d;
-      }).on("click", __bind(function(d) {
-        this.options.page = d;
-        return this.refresh();
-      }, this));
+      }).on("click", function(d) {
+        _this.options.page = d;
+        return _this.refresh();
+      });
       return pages.exit().remove();
     };
+
     DataGrid.prototype.sort = function(data, options) {
-      if (!options.sort) {
-        return;
-      }
+      if (!options.sort) return;
       return data;
     };
+
     DataGrid.prototype.filter_state_for = function(filter, index) {
       var type, value;
       type = filter.type;
@@ -405,6 +419,7 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
         return new picnet.ui.filter.FilterState(filter.getAttribute('id'), value, index, type);
       }
     };
+
     DataGrid.prototype.filter_states = function() {
       var filter_index, filter_states;
       filter_states = [];
@@ -412,37 +427,38 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       this.filters.each(function(filter) {
         var filter_state;
         filter_state = DataGrid.prototype.filter_state_for(this, filter_index);
-        if (filter_state) {
-          filter_states.push(filter_state);
-        }
+        if (filter_state) filter_states.push(filter_state);
         return filter_index += 1;
       });
       return filter_states;
     };
+
     DataGrid.prototype.filter = function(data, options) {
-      var filter_state, filter_states, _i, _len;
+      var filter_state, filter_states, _i, _len,
+        _this = this;
       filter_states = this.filter_states();
       for (_i = 0, _len = filter_states.length; _i < _len; _i++) {
         filter_state = filter_states[_i];
         filter_state.tokens = this.search.parseSearchTokens(filter_state.value);
       }
       if (filter_states && filter_states.length > 0) {
-        data = data.filter(__bind(function(d) {
+        data = data.filter(function(d) {
           var d_values, filter_state, keep, _j, _len2;
           d_values = d3.values(d);
           keep = true;
           for (_j = 0, _len2 = filter_states.length; _j < _len2; _j++) {
             filter_state = filter_states[_j];
-            if (!this.search.doesTextMatchTokens(d_values[filter_state.idx], filter_state.tokens, false)) {
+            if (!_this.search.doesTextMatchTokens(d_values[filter_state.idx], filter_state.tokens, false)) {
               keep = false;
               break;
             }
           }
           return keep;
-        }, this));
+        });
       }
       return data;
     };
+
     DataGrid.prototype.limit = function(data, options) {
       var current_page, limit_end, limit_start, max_pages;
       max_pages = Math.ceil(data.length / options.limit);
@@ -450,11 +466,13 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       current_page = Math.min(current_page, max_pages);
       limit_start = (current_page - 1) * options.limit;
       limit_end = Math.min(current_page * options.limit, data.length) - 1;
-      return data.slice(limit_start, (limit_end + 1) || 9e9);
+      return data.slice(limit_start, limit_end + 1 || 9e9);
     };
+
     DataGrid.prototype.header = function(data) {
       return d3.keys(data[0]);
     };
+
     DataGrid.prototype.show = function(id, data) {
       var options;
       this.original_data = data;
@@ -463,6 +481,7 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       this.create_view("#data_grid_data", data, options);
       return this.refresh();
     };
+
     DataGrid.prototype.refresh = function() {
       var data, options, page_data;
       options = this.get_options();
@@ -478,11 +497,25 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       page_data = this.limit(data, options);
       return this.refresh_view(page_data, options);
     };
+
+    DataGrid.prototype.start_refresh_timer = function() {
+      if (this.timer) clearTimeout(this.timer);
+      return this.timer = setTimeout(this.end_refresh_timer, this.get_options().timer_interval);
+    };
+
+    DataGrid.prototype.end_refresh_timer = function() {
+      this.timer = null;
+      return this.refresh();
+    };
+
     return DataGrid;
+
   })();
+
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
+
   $(function() {
-    var data_grid, data_loaded, error_bad_load, error_no_file, options;
+    var data_grid, data_loaded, error_bad_extension, error_bad_load, error_no_file, ext, options;
     data_grid = new DataGrid;
     options = data_grid.get_options();
     data_loaded = function(data) {
@@ -499,10 +532,21 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
     error_no_file = function() {
       return d3.select("#data_grid").html("<h2 class=\"error\">ERROR: no file provided</h2>");
     };
+    error_bad_extension = function() {
+      return d3.select("#data_grid").html("<h2 class=\"error\">ERROR: " + options.filename + " wrong extension. Can be .tsv or .csv</h2>");
+    };
     if (options.filename) {
-      return d3.csv(options.filename, data_loaded);
+      ext = options.filename.split('.').pop();
+      if (ext === "csv") {
+        return d3.csv(options.filename, data_loaded);
+      } else if (ext === "tsv") {
+        return d3.tsv(options.filename, data_loaded);
+      } else {
+        return error_bad_extension();
+      }
     } else {
       return error_no_file();
     }
   });
+
 }).call(this);

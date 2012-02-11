@@ -296,6 +296,7 @@ class DataGrid
   constructor: () ->
     @filters = []
     @search  = new picnet.ui.filter.SearchEngine()
+    @timer = null
 
   init_options: () =>
     options = {}
@@ -305,6 +306,7 @@ class DataGrid
     options.sort = getURLParameter('sort') || null
     options.page_top = getURLParameter('page_top') || false
     options.page_bottom = getURLParameter('page_bottom') || true
+    options.timer_interval = getURLParameter('timer_interval') || 800
     options
 
   get_options: () =>
@@ -331,7 +333,7 @@ class DataGrid
       .attr("id", (d,i) -> "filter_#{i}")
       .attr("type", "text")
       .style("width", "95%")
-      .on("input", (d) => this.refresh())
+      .on("input", (d) => this.start_refresh_timer())
 
     @grid_body = grid.append("tbody")
 
@@ -359,8 +361,6 @@ class DataGrid
 
     # min_pages = Math.max(min_all_pages, if current_page < page_range then 1 else Math.abs(current_page - 25) )
     # max_pages = Math.min(max_all_pages, current_page + page_range)
-
-    console.log([min_pages, max_pages])
 
     pagination = d3.select(id).attr("class", "data_grid_page_links")
 
@@ -473,6 +473,15 @@ class DataGrid
     page_data = this.limit(data, options)
     this.refresh_view(page_data, options)
 
+  start_refresh_timer: () =>
+    if @timer
+      clearTimeout(@timer)
+    @timer = setTimeout(this.end_refresh_timer, this.get_options().timer_interval)
+
+  end_refresh_timer: () =>
+    @timer = null
+    this.refresh()
+
 root = exports ? this
 
 $ ->
@@ -491,8 +500,17 @@ $ ->
   error_no_file = () ->
     d3.select("#data_grid").html("<h2 class=\"error\">ERROR: no file provided</h2>")
 
+  error_bad_extension = () ->
+    d3.select("#data_grid").html("<h2 class=\"error\">ERROR: #{options.filename} wrong extension. Can be .tsv or .csv</h2>")
+
   if options.filename
-    d3.csv options.filename, data_loaded
+    ext = options.filename.split('.').pop()
+    if(ext == "csv")
+      d3.csv options.filename, data_loaded
+    else if(ext == "tsv")
+      d3.tsv options.filename, data_loaded
+    else
+      error_bad_extension()
   else
     error_no_file()
 
