@@ -50,6 +50,9 @@ $(document).ready(function() {
         output += "\n";
       });
       return output;
+    },
+    afterCopy:function() {
+      alert("Copied To Clipboard!\n\nPaste into Excel.");
     }
   });
 
