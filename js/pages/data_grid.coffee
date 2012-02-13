@@ -297,6 +297,7 @@ class DataGrid
     @filters = []
     @search  = new picnet.ui.filter.SearchEngine()
     @timer = null
+    @column_displays = {}
 
   init_options: () =>
     options = {}
@@ -307,6 +308,7 @@ class DataGrid
     options.page_top = getURLParameter('page_top') || false
     options.page_bottom = getURLParameter('page_bottom') || true
     options.timer_interval = getURLParameter('timer_interval') || 800
+    options.chart_display = getURLParameter('chart_display') || true
     options
 
   get_options: () =>
@@ -314,20 +316,39 @@ class DataGrid
       @options = this.init_options()
     @options
 
+  # TODO: lots of column display stuff in our data_grid
+  # move out to separate class?
+  column_display: (column_id) =>
+    @column_displays[column_id]
+
+  set_column_display: (column_id, display_type) =>
+    @column_displays[column_id] = display_type
+
+  # TODO: hardcoding image paths not portable. 
+  # investigate css only approach
+  column_display_icon: (display_type) =>
+    if display_type == "num"
+      "/imgs/data_grid/eye.png"
+    else
+      "/imgs/data_grid/chart.png"
+
   change_column_display: (column_id) =>
-    console.log(@filtered_data.length)
+    current_display = this.column_display(column_id)
+    new_display = if current_display == "num" then "chart" else "num"
     grid_rows = @grid_body.selectAll("tr")
     column_extent = d3.extent(@filtered_data, (d) -> parseFloat(d3.values(d)[column_id]))
-    console.log(column_extent)
-    w = d3.scale.linear().domain(column_extent).range(["5px", "30px"])
+    w = d3.scale.linear().domain(column_extent).range(["2px", "30px"])
     grid_rows.each (d) ->
-      value = parseFloat(d3.values(d)[column_id])
-      console.log(w(value))
-      d3.select(this).selectAll("td").filter((d,i) -> i == column_id).html("<div class=\"data_grid_bar\" style=\"width:#{w(value)};background-color:steelBlue;height:16px;\"></div>")
+      raw_value = d3.values(d)[column_id]
+      new_html = raw_value
+      if current_display == "num"
+        value = parseFloat(d3.values(d)[column_id])
+        if value
+          new_html = "<div title=\"#{raw_value}\"class=\"data_grid_bar\" style=\"width:#{w(value)};background-color:steelBlue;height:16px;\"></div>"
+      d3.select(this).selectAll("td").filter((d,i) -> i == column_id).html(new_html)
+    this.set_column_display(column_id, new_display)
+    @display_controls.filter((d,i) -> i == column_id).attr("src", this.column_display_icon(current_display))
       
-
-    # grid_rows.each (d) -> console.log(this)
-
   create_view: (id, data, options) =>
     grid = d3.select(id).append("table")
       .attr("id", "data_grid_table")
@@ -336,7 +357,10 @@ class DataGrid
 
     grid_header = grid.append("thead")
     grid_titles = grid_header.append("tr")
-    grid_views = grid_header.append("tr").attr("class", "grid_views")
+    grid_views = null
+    if this.get_options().chart_display
+      grid_views = grid_header.append("tr").attr("class", "grid_views")
+
     grid_filters = grid_header.append("tr").attr("class", "filters")
 
     grid_titles.selectAll("th")
@@ -345,14 +369,16 @@ class DataGrid
         "sortable"
       ).on("click", (d,i) => this.sort_decending(i)).text((d) -> d)
 
-    grid_views.selectAll("td")
-      .data(header_data).enter()
-    .append("td").attr("class", "data_grid_display_select").append("a")
-      .attr("href", "#")
-      .text("x")
-      .on("click", (d,i) => this.change_column_display(i))
+    if grid_views
+      @display_controls = grid_views.selectAll("td")
+        .data(header_data).enter()
+      .append("td").attr("class", "data_grid_display_select").append("a")
+        .attr("href", "#")
+        .on("click", (d,i) => this.change_column_display(i))
+        .append("img")
+        .attr("src", this.column_display_icon("chart"))
 
-
+      @display_controls.each((d,i) => this.set_column_display(i, "num"))
 
     @filters = grid_filters.selectAll("td")
       .data(header_data).enter()

@@ -27,5 +27,5 @@ a.data_grid_page_link:hover {
 }
 
 #data_grid_data .sortable {
-  background: url('/imgs/data_grid/sort_both.png') no-repeat center right;
+  /* background: url('/imgs/data_grid/sort_both.png') no-repeat center right; */
 }
