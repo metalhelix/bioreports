@@ -153,6 +153,52 @@ Currently works on the following root paths:
 /n/analysis
 {% endhighlight %}
 
+h3. Data Grids
+
+A data grid is a separate page you can associate with your report to display large tsv or csv files.
+
+First, put the @.csv@ or @.tsv@ file into your @data/@ directory.
+
+Then use the @data_grid@ tag to create a button in your report that links to a display of your data file:
+
+<pre>{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv %}</pre>
+
+Produces:
+
+{% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv %}
+
+Data Grids can handle very large files because they show one page of data at a time. Filtering and other data modifications work on the entire data set, but then the data is split over pages for displaying purposes.
+
+h4. Row Limit
+
+By default, @100@ rows are displayed in a data grid at a time. You can modify this by supplying the @limit@ parameter to the @data_grid@ tag.
+
+{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50 %}
+
+Produces:
+
+{% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50 %}
+
+h4. Chart Display
+
+A data grid has some interesting features. One feature is the ability to display a chart based view of numerical data. If you don't like this feature, set @chart_display@ to false
+
+{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false %}
+
+Produces:
+
+{% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false %}
+
+h4. Pagination Links
+
+By default, links to the different pages of data show up on the bottom of the page. You can optionally turn on top of the page pagination links using @page_top@
+
+{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false, page_top = true %}
+
+Produces:
+
+{% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false, page_top = true %}
+
 h3. Local Data Files
 
 Local data links can be created for files in your report's @data/@ directory.
