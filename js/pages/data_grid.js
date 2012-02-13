@@ -351,7 +351,7 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
         console.log(w(value));
         return d3.select(this).selectAll("td").filter(function(d, i) {
           return i === column_id;
-        }).html("<div class=\"data_grid_bar\" style=\"width:" + (w(value)) + ";background-color:blue;height:16px;\"></div>");
+        }).html("<div class=\"data_grid_bar\" style=\"width:" + (w(value)) + ";background-color:steelBlue;height:16px;\"></div>");
       });
     };
 

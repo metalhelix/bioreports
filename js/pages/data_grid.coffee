@@ -323,7 +323,7 @@ class DataGrid
     grid_rows.each (d) ->
       value = parseFloat(d3.values(d)[column_id])
       console.log(w(value))
-      d3.select(this).selectAll("td").filter((d,i) -> i == column_id).html("<div class=\"data_grid_bar\" style=\"width:#{w(value)};background-color:blue;height:16px;\"></div>")
+      d3.select(this).selectAll("td").filter((d,i) -> i == column_id).html("<div class=\"data_grid_bar\" style=\"width:#{w(value)};background-color:steelBlue;height:16px;\"></div>")
       
 
     # grid_rows.each (d) -> console.log(this)
