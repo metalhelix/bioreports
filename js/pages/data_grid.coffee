@@ -319,11 +319,11 @@ class DataGrid
     grid_rows = @grid_body.selectAll("tr")
     column_extent = d3.extent(@filtered_data, (d) -> parseFloat(d3.values(d)[column_id]))
     console.log(column_extent)
-    width = d3.scale.linear().domain(column_extent).range(1, 20)
+    w = d3.scale.linear().domain(column_extent).range(["5px", "30px"])
     grid_rows.each (d) ->
       value = parseFloat(d3.values(d)[column_id])
-      d3.select(this).select("td").append("td").append("div").style("width",width(value)).style("background-color", "black")
-      console.log(value)
+      console.log(w(value))
+      d3.select(this).selectAll("td").filter((d,i) -> i == column_id).html("<div class=\"data_grid_bar\" style=\"width:#{w(value)};background-color:blue;height:16px;\"></div>")
       
 
     # grid_rows.each (d) -> console.log(this)

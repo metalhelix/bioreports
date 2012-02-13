@@ -337,19 +337,21 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
     };
 
     DataGrid.prototype.change_column_display = function(column_id) {
-      var column_extent, grid_rows, width;
+      var column_extent, grid_rows, w;
       console.log(this.filtered_data.length);
       grid_rows = this.grid_body.selectAll("tr");
       column_extent = d3.extent(this.filtered_data, function(d) {
         return parseFloat(d3.values(d)[column_id]);
       });
       console.log(column_extent);
-      width = d3.scale.linear().domain(column_extent).range(1, 20);
+      w = d3.scale.linear().domain(column_extent).range(["5px", "30px"]);
       return grid_rows.each(function(d) {
         var value;
         value = parseFloat(d3.values(d)[column_id]);
-        d3.select(this).select("td").append("td").append("div").style("width", width(value)).style("background-color", "black");
-        return console.log(value);
+        console.log(w(value));
+        return d3.select(this).selectAll("td").filter(function(d, i) {
+          return i === column_id;
+        }).html("<div class=\"data_grid_bar\" style=\"width:" + (w(value)) + ";background-color:blue;height:16px;\"></div>");
       });
     };
 
