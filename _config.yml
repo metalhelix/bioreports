@@ -40,6 +40,7 @@ static:
 - _plugins
 - _config.yml
 - favicon.ico
+- data_grid.html
 
 reports_dir: _posts
 
