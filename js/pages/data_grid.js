@@ -323,10 +323,10 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       options.page = parseInt(getURLParameter('page')) || 1;
       options.limit = parseInt(getURLParameter('limit')) || 100;
       options.sort = getURLParameter('sort') || null;
-      options.page_top = getURLParameter('page_top') || false;
-      options.page_bottom = getURLParameter('page_bottom') || true;
+      options.page_top = getURLParameter('page_top') === 'true';
+      options.page_bottom = !(getURLParameter('page_bottom') === 'false');
       options.timer_interval = getURLParameter('timer_interval') || 800;
-      options.chart_display = getURLParameter('chart_display') || true;
+      options.chart_display = !(getURLParameter('chart_display') === 'false');
       return options;
     };
     DataGrid.prototype.get_options = function() {
