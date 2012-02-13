@@ -336,15 +336,23 @@ class DataGrid
 
     grid_header = grid.append("thead")
     grid_titles = grid_header.append("tr")
+    grid_views = grid_header.append("tr").attr("class", "grid_views")
     grid_filters = grid_header.append("tr").attr("class", "filters")
 
     grid_titles.selectAll("th")
       .data(header_data).enter()
-      .append("th").text((d) -> d)
-      .append("span").attr("class", "data_grid_display_select").append("a")
-        .attr("href", "#")
-        .text("x")
-        .on("click", (d,i) => this.change_column_display(i))
+      .append("th").attr("class", (d) =>
+        "sortable"
+      ).on("click", (d,i) => this.sort_decending(i)).text((d) -> d)
+
+    grid_views.selectAll("td")
+      .data(header_data).enter()
+    .append("td").attr("class", "data_grid_display_select").append("a")
+      .attr("href", "#")
+      .text("x")
+      .on("click", (d,i) => this.change_column_display(i))
+
+
 
     @filters = grid_filters.selectAll("td")
       .data(header_data).enter()
@@ -405,6 +413,9 @@ class DataGrid
   sort: (data, options) =>
     return if !options.sort
     data
+
+  sort_decending: (column_id) =>
+    console.log("sort descending")
 
   # Given a filter element and the index of the
   # filter, this will return a FilterState

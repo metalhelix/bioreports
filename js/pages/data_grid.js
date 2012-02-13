@@ -307,6 +307,7 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
       this.filter = __bind(this.filter, this);
       this.filter_states = __bind(this.filter_states, this);
       this.filter_state_for = __bind(this.filter_state_for, this);
+      this.sort_decending = __bind(this.sort_decending, this);
       this.sort = __bind(this.sort, this);
       this.create_view_pagination = __bind(this.create_view_pagination, this);
       this.refresh_view = __bind(this.refresh_view, this);
@@ -356,16 +357,22 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
     };
 
     DataGrid.prototype.create_view = function(id, data, options) {
-      var grid, grid_filters, grid_header, grid_titles, header_data,
+      var grid, grid_filters, grid_header, grid_titles, grid_views, header_data,
         _this = this;
       grid = d3.select(id).append("table").attr("id", "data_grid_table");
       header_data = this.header(data);
       grid_header = grid.append("thead");
       grid_titles = grid_header.append("tr");
+      grid_views = grid_header.append("tr").attr("class", "grid_views");
       grid_filters = grid_header.append("tr").attr("class", "filters");
-      grid_titles.selectAll("th").data(header_data).enter().append("th").text(function(d) {
+      grid_titles.selectAll("th").data(header_data).enter().append("th").attr("class", function(d) {
+        return "sortable";
+      }).on("click", function(d, i) {
+        return _this.sort_decending(i);
+      }).text(function(d) {
         return d;
-      }).append("span").attr("class", "data_grid_display_select").append("a").attr("href", "#").text("x").on("click", function(d, i) {
+      });
+      grid_views.selectAll("td").data(header_data).enter().append("td").attr("class", "data_grid_display_select").append("a").attr("href", "#").text("x").on("click", function(d, i) {
         return _this.change_column_display(i);
       });
       this.filters = grid_filters.selectAll("td").data(header_data).enter().append("td").append("input").attr("id", function(d, i) {
@@ -428,6 +435,10 @@ picnet.ui.filter.FilterState.prototype.toString = function() { return 'id[' + th
     DataGrid.prototype.sort = function(data, options) {
       if (!options.sort) return;
       return data;
+    };
+
+    DataGrid.prototype.sort_decending = function(column_id) {
+      return console.log("sort descending");
     };
 
     DataGrid.prototype.filter_state_for = function(filter, index) {

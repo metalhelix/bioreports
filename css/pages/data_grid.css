@@ -21,3 +21,11 @@ a.data_grid_page_link:hover {
   color: black;
   background-color: #FFCA5A;
 }
+
+#data_grid_data th {
+  padding-right: 8px;
+}
+
+#data_grid_data .sortable {
+  background: url('/imgs/data_grid/sort_both.png') no-repeat center right;
+}
