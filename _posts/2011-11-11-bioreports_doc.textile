@@ -173,7 +173,7 @@ h4. Row Limit
 
 By default, @100@ rows are displayed in a data grid at a time. You can modify this by supplying the @limit@ parameter to the @data_grid@ tag.
 
-{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50 %}
+<pre>{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50 %}</pre>
 
 Produces:
 
@@ -183,7 +183,7 @@ h4. Chart Display
 
 A data grid has some interesting features. One feature is the ability to display a chart based view of numerical data. If you don't like this feature, set @chart_display@ to false
 
-{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false %}
+<pre>{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false %}</pre>
 
 Produces:
 
@@ -193,7 +193,7 @@ h4. Pagination Links
 
 By default, links to the different pages of data show up on the bottom of the page. You can optionally turn on top of the page pagination links using @page_top@
 
-{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false, page_top = true %}
+<pre>{_% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false, page_top = true %}</pre>
 
 Produces:
 
