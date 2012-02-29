@@ -1,5 +1,5 @@
 a, a:visited, a:active {
-  color: #5d5d5d;
+  color: #436DB3;
 }
 
 a:hover { color: #588EEA; }
@@ -43,6 +43,10 @@ span.header_accent {
   font-size: 12px;
 }
 
+span.header_accent a {
+  color: #5d5d5d;
+}
+
 #toc {
 	float: right;
 	font-size: 10pt;
@@ -51,6 +55,10 @@ span.header_accent {
 	background: #FDF5D9;
 	border: solid 1px #FCEEC1;
 	margin: 5px 0 10px 0;
+}
+
+#toc a {
+  color: #5d5d5d;
 }
 
 #about {
