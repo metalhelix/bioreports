@@ -11,6 +11,7 @@ baseurl: /
 index_pages:
   category:
     do_related:     false
+    pluralize:      false
     title_prefix:   'Lab: '
   analyst:
     do_related:     false
