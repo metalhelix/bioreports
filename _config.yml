@@ -11,7 +11,6 @@ baseurl: /
 index_pages:
   category:
     do_related:     false
-    pluralize:      false
     title_prefix:   'Category: '
   analyst:
     do_related:     false
