@@ -1,0 +1,28 @@
+---
+layout: default
+body: blog archive
+---
+
+<h1> {{ page.pi }} projects</h1>
+<table cellpadding="0" cellspacing="0" border="0" class="data_table display" id="projects_table">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>PI</td>
+      <td>Researcher</td>
+      <td>Analyst</td>
+      <td>Date Created</td>
+    </tr>
+  </thead>
+  <tbody>
+  {% for sub_page in page.sub_pages %}
+  <tr>
+    <td><a href="{{ sub_page.url}}">{{ sub_page.title }}</a></td>
+    <td>{{ sub_page.pi }}</td>
+    <td>{{ sub_page.researcher }}</td>
+    <td>{{ sub_page.analyst }}</td>
+    <td>{{ sub_page.date | date_to_string }}</td>
+  </tr>
+{% endfor %}
+  </tbody>
+</table>

@@ -20,10 +20,15 @@ index_pages:
     do_related:     false
     pluralize:      false
     title_prefix:   'Researcher: '
+  pi:
+    do_related:     false
+    pluralize:      false
+    title_prefix:   'PI: '
 
 category_dir: labs
 analyst_dir: analyst
 researcher_dir: researcher
+pi_dir: pi
 
 rdiscount:
   extensions: []

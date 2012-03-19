@@ -35,9 +35,9 @@ title:
   </div>
 
   <div class="span5">
-    <h1>Labs</h1>
-    {% for category in site.categories %}
-    <li><a href="/{{ site.category_dir }}/{{ category[0] | replace:' ', '-' | downcase  }}">{{ category[0] }}</a></li>
+    <h1>PIs</h1>
+    {% for pi in site.post_data["pi"] %}
+    <li><a href="/{{ site.pi_dir }}/{{ pi[0] | replace:' ', '-' | downcase  }}">{{ pi[0] }}</a></li>
     {% endfor %}
   </div>
 
@@ -45,6 +45,15 @@ title:
     <h1>Analysts</h1>
     {% for analyst in site.post_data["analyst"] %}
     <li><a href="/{{ site.analyst_dir }}/{{ analyst[0] | replace:' ', '-' | downcase  }}">{{ analyst[0] }}</a></li>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="row">
+  <div class="span5">
+    <h1>Categories</h1>
+    {% for category in site.categories %}
+    <li><a href="/{{ site.category_dir }}/{{ category[0] | replace:' ', '-' | downcase  }}">{{ category[0] }}</a></li>
     {% endfor %}
   </div>
 </div>
