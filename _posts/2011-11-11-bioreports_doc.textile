@@ -199,19 +199,6 @@ Produces:
 
 {% data_grid data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv limit = 50, chart_display = false, page_top = true %}
 
-h3. Local Data Files
-
-Local data links can be created for files in your report's @data/@ directory.
-
-Use the @data_link@ tag to create a new page for this csv or tsv file. This tag also adds a button to access the data in your report:
-
-<pre>{_% data_link data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv %}</pre>
-
-Produces:
-
-{% data_link data/bioreports_doc/sample_223b.snps.filtered.unique.short.csv %}
-
-
 h2. Tables
 
 The @table@ tag embeds a pretty table in your report with the data following this tag. Use @endtable@ to indicate the end of your data set. The @table@ tag has a input that can either be @tsv@ or @csv@ to specify the type of input data you are using.
