@@ -46,6 +46,7 @@ static:
 - _config.yml
 - favicon.ico
 - data_grid.html
+- config.ru
 
 reports_dir: _posts
 
