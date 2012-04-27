@@ -4,7 +4,7 @@ module Jekyll
     ROOTS = { "facility" =>
                   {:win => "sgc-core\\core", :mac => "sgc-core.sgc.loc/core", :nix => "n/facility", :web => "bioinfo/n/facility"},
               "analysis" =>
-                  {:win => "dm3\\solexa-analysis", :mac => "dm3.sgc.loc/solexa-analysis", :nix => "n/analysis", :web => "bioinfo/n/analysis"},
+                  {:win => "ion\\solexa-analysis", :mac => "ion.sgc.loc/solexa-analysis", :nix => "n/analysis", :web => "bioinfo/n/analysis"},
               "data1" =>
                   {:win => "dm3\\data1", :mac => "dm3.sgc.loc/data1", :nix => "n/data1", :web => "bioinfo/n/data1"},
               "projects" =>
