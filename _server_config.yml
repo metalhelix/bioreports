@@ -25,9 +25,9 @@ index_pages:
     pluralize:      false
     title_prefix:   'PI: '
 
-category_dir: category
-analyst_dir: analyst
-researcher_dir: researcher
+category_dir: c
+analyst_dir: a
+researcher_dir: r
 pi_dir: pi
 
 rdiscount:
