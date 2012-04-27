@@ -1,6 +1,7 @@
 ---
 layout: default
 title: 
+js: dashboard.js
 ---
 <h1>Projects</h1>
 <table cellpadding="0" cellspacing="0" border="0" class="data_table display" id="projects_table">
@@ -27,33 +28,41 @@ title:
 </table>
 
 <div class="row">
-  <div class="span5 offset1">
-    <h1>Researchers</h1>
-    {% for researcher in site.post_data["researcher"] %}
-    <li><a href="/{{ site.researcher_dir }}/{{ researcher[0] | replace:' ', '-' | downcase  }}">{{ researcher[0] }}</a></li>
-    {% endfor %}
+  <div class="span4">
+    <h1><a href="#" id="analysts_link">Analysts</a></h1>
+    <div id="analysts" style="display:none;">
+      {% for analyst in site.post_data["analyst"] %}
+      <li><a href="/{{ site.analyst_dir }}/{{ analyst[0] | replace:' ', '-' | downcase  }}">{{ analyst[0] }}</a></li>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="span4">
+    <h1><a id="researchers_link" href="#">Researchers</a></h1>
+    <div id="researchers" style="display:none;">
+      {% for researcher in site.post_data["researcher"] %}
+      <li><a href="/{{ site.researcher_dir }}/{{ researcher[0] | replace:' ', '-' | downcase  }}">{{ researcher[0] }}</a></li>
+      {% endfor %}
+    </div>
   </div>
 
-  <div class="span5">
-    <h1>PIs</h1>
-    {% for pi in site.post_data["pi"] %}
-    <li><a href="/{{ site.pi_dir }}/{{ pi[0] | replace:' ', '-' | downcase  }}">{{ pi[0] }}</a></li>
-    {% endfor %}
+  <div class="span4">
+    <h1><a href="#" id="pis_link">PIs</a></h1>
+    <div id="pis" style="display:none;">
+      {% for pi in site.post_data["pi"] %}
+      <li><a href="/{{ site.pi_dir }}/{{ pi[0] | replace:' ', '-' | downcase  }}">{{ pi[0] }}</a></li>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="span4">
+    <h1><a href="#" id="categories_link">Categories</a></h1>
+    <div id="categories" style="display:none">
+      {% for category in site.categories %}
+      <li><a href="/{{ site.category_dir }}/{{ category[0] | replace:' ', '-' | downcase  }}">{{ category[0] }}</a></li>
+      {% endfor %}
+    </div>
   </div>
 
-  <div class="span5">
-    <h1>Analysts</h1>
-    {% for analyst in site.post_data["analyst"] %}
-    <li><a href="/{{ site.analyst_dir }}/{{ analyst[0] | replace:' ', '-' | downcase  }}">{{ analyst[0] }}</a></li>
-    {% endfor %}
-  </div>
 </div>
 
 <div class="row">
-  <div class="span5">
-    <h1>Categories</h1>
-    {% for category in site.categories %}
-    <li><a href="/{{ site.category_dir }}/{{ category[0] | replace:' ', '-' | downcase  }}">{{ category[0] }}</a></li>
-    {% endfor %}
-  </div>
 </div>
