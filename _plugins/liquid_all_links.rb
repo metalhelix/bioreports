@@ -2,13 +2,13 @@ module Jekyll
   class AllLinks < Liquid::Tag
 
     ROOTS = { "facility" =>
-                  {:win => "sgc-core\\core", :mac => "sgc-core.sgc.loc/core", :nix => "n/facility", :web => "bioinfo/n/facility"},
+                  {:win => "ion\\core", :mac => "ion.sgc.loc/core", :nix => "n/facility", :web => "bioinfo/n/facility"},
               "analysis" =>
                   {:win => "ion\\solexa-analysis", :mac => "ion.sgc.loc/solexa-analysis", :nix => "n/analysis", :web => "bioinfo/n/analysis"},
               "data1" =>
                   {:win => "dm3\\data1", :mac => "dm3.sgc.loc/data1", :nix => "n/data1", :web => "bioinfo/n/data1"},
               "projects" =>
-                  {:win => "sgc-projects\\projects", :mac => "sgc-projects.sgc.loc/projects", :nix => "n/projects", :web => "bioinfo/n/projects"}
+                  {:win => "ion\\projects", :mac => "ion.sgc.loc/projects", :nix => "n/projects", :web => "bioinfo/n/projects"}
     }
 
 
