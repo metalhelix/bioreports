@@ -12,7 +12,7 @@ title:
     </tr>
   </thead>
   <tbody>
-    {% for overview in site.post_data["type"]["overview"] %}
+    {% for overview in site.post_data["type"]["overview"] reversed %}
     <tr>
       <td><a href="{{ overview.url}}">{{ overview.title | truncate:80 }}</a></td>
       <td>{{ overview.date | date_to_string }}</td>
