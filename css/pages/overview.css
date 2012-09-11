@@ -1,0 +1,56 @@
+
+h3 {
+  background-color: #ddd;
+  padding: 5px 0 5px 5px;
+}
+
+table.overview {
+}
+
+table.overview thead td, table thead th {
+  text-align: left;
+}
+
+table.overview td {
+  text-align: left;
+}
+
+table.overview th {
+  padding-top: 9px;
+  font-weight: bold;
+}
+
+table.overview td {
+  /* border-right: 1px solid #DDD; */
+}
+
+table.overview tbody tr td:first-child,
+table.overview thead tr th:first-child {
+  font-weight: bold;
+  text-align:right;
+}
+
+table.overview tbody tr td:nth-child(1) {
+  width: 10%;
+}
+
+table.overview tbody tr td:nth-child(2) {
+  width: 15%;
+}
+
+table.overview tbody tr td:nth-child(3) {
+  width: 10%;
+}
+
+table.overview tbody tr td:nth-child(4) {
+  width: 10%;
+}
+
+table.overview tbody tr td:nth-child(5) {
+  width: 45%;
+}
+
+table.overview tbody tr td:nth-child(6) {
+  width: 10%;
+}
+
