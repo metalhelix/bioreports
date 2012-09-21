@@ -15,14 +15,18 @@ js: dashboard.js
     </tr>
   </thead>
   <tbody>
-  {% for post in site.posts %}
-  <tr>
-    <td><a href="{{ post.url}}"> {{ post.title | truncate:80 }}</a></td>
-    <td>{{ post.pi }}</td>
-    <td>{{ post.researcher }}</td>
-    <td>{{ post.analyst }}</td>
-    <td>{{ post.date | date_to_string }}</td>
-  </tr>
+    {% assign overviews = site.post_data["type"]["overview"] | map: 'url' %}
+
+    {% for post in site.posts %}
+      {% unless overviews contains post.url %}
+        <tr>
+          <td><a href="{{ post.url}}"> {{ post.title | truncate:80 }}</a></td>
+          <td>{{ post.pi }}</td>
+          <td>{{ post.researcher }}</td>
+          <td>{{ post.analyst }}</td>
+          <td>{{ post.date | date_to_string }}</td>
+        </tr>
+  {% endunless %}
 {% endfor %}
   </tbody>
 </table>

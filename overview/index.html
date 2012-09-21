@@ -1,0 +1,22 @@
+---
+layout: default
+title: 
+---
+<h1>Overview Reports</h1>
+
+<table cellpadding="0" cellspacing="0" border="0" class="data_table display" id="projects_table">
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Date Created</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for overview in site.post_data["type"]["overview"] reversed %}
+    <tr>
+      <td><a href="{{ overview.url}}">{{ overview.title | truncate:80 }}</a></td>
+      <td>{{ overview.date | date_to_string }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>

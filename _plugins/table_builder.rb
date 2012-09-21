@@ -1,3 +1,5 @@
+require 'redcloth'
+
 module Jekyll
   class TableBuilder
     def self.build_from_file filename, options = {}
@@ -20,6 +22,10 @@ module Jekyll
         data = split_csv_data data_string
       else
         data = split_csv_data data_string
+      end
+      data = data.select {|l| !l.empty?}
+      if options[:format]
+        data = format_data(data, options[:format])
       end
       render_html_table(data, options)
     end
@@ -48,6 +54,21 @@ module Jekyll
       output += "</tbody>"
       output += "</table></notextile>"
       output
+    end
+
+    def self.format_data(data, format)
+      format_data = data
+      if format == "textile"
+        puts "formatting data in table as textile"
+
+        format_data = data.collect do |line|
+          line = line.collect {|d| RedCloth.new(d, [:lite_mode]).to_html}
+          line
+        end
+      else
+        puts "unknown format"
+      end
+      format_data
     end
 
     def self.split_csv_data(raw_data)
