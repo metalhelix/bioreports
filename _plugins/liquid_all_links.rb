@@ -3,6 +3,8 @@ module Jekyll
 
     ROOTS = { "facility" =>
                   {:win => "ion\\core", :mac => "ion.sgc.loc/core", :nix => "n/facility", :web => "bioinfo/n/facility"},
+              "core" =>
+                  {:win => "ion\\core", :mac => "ion.sgc.loc/core", :nix => "n/core", :web => "bioinfo/n/core"},
               "analysis" =>
                   {:win => "ion\\solexa-analysis", :mac => "ion.sgc.loc/solexa-analysis", :nix => "n/analysis", :web => "bioinfo/n/analysis"},
               "data1" =>
