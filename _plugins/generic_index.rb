@@ -85,10 +85,13 @@ module Jekyll
           page_types = site.post_data[page_type]
         end
 
+        if site.config['matches'][page_type]
+          page_types = combine_matches(page_types, site.config['matches'][page_type])
+        end
+
 
         if page_types && site.layouts.key?(config['index_page'])
-          page_types.keys.each do |page|
-            sub_pages = page_types[page]
+          page_types.each do |page, sub_pages|
 
             write_index(site, File.join(dir, page.gsub(/\s/, "-").gsub(/[^\w-]/, '').downcase), page, page_type, sub_pages, config)
           end
@@ -98,6 +101,29 @@ module Jekyll
           write_list(site, dir, page_types.keys.sort, page_type, config)
         end
       end
+    end
+
+    def combine_matches(page_groups, match_data)
+      matched_pages = {}
+      match_data.each do |key, matches|
+        [key,matches].flatten.each do |match|
+          if page_groups.include?(match)
+            matched_pages[key] ||= []
+            matched_pages[key].concat(page_groups.delete(match))
+            # matched_pages[key].concat(page_groups[match])
+          end
+        end
+      end
+      # match not found
+      page_groups.each do |pkey, pages|
+        if !matched_pages.include?(pkey)
+          matched_pages[pkey] = pages
+        end
+      end
+
+      page_groups.replace(matched_pages)
+
+      matched_pages
     end
 
     def write_index(site, dir, page, page_type, pages, config)

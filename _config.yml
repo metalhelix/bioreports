@@ -25,6 +25,24 @@ index_pages:
     pluralize:      false
     title_prefix:   'PI: '
 
+matches:
+  pi:
+    Li_L:
+      - lil
+      - LIL
+      - Li_L
+    Molecular_Biology:
+      - Molecular_Biology
+      - molbio
+    cbio:
+      - cbio
+      - bio
+      - biocore
+    Mak:
+      - hym
+      - mak
+      - Mak
+
 category_dir: c
 analyst_dir: a
 researcher_dir: r

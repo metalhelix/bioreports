@@ -3,7 +3,7 @@ layout: report
 title: Table Examples
 analyst: jfv
 researcher: bio
-pi: bio
+pi: cbio
 categories: 
 - biocore
 ---
