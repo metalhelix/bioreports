@@ -34,10 +34,52 @@ matches:
     Molecular_Biology:
       - Molecular_Biology
       - molbio
+      - agp
     cbio:
       - cbio
       - bio
       - biocore
+    Krumlauf:
+      - Krumlauf
+      - krumlauf
+      - rek
+    Sanchez:
+      - asa
+      - Sanchez
+      - sanchez
+    Hawley:
+      - rsh
+      - Hawley
+    Piotrowski:
+      - pio
+      - PIO
+      - Piotrowski
+      - piotrowski
+    Gerton:
+      - Gerton
+      - jeg
+      - JEG
+    Trainor:
+      - pat
+      - PAT
+      - Trainor
+    Mak:
+      - hym
+      - Mak
+      - MAK
+      - mak
+    Workman:
+      - jlw
+      - Workman
+    Genomics:
+      - cws
+    Baumann:
+      - peb
+      - Baumann
+    Shilatifard:
+      - ash
+      - Shilatifard
+
 
 category_dir: c
 analyst_dir: a
