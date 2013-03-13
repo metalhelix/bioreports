@@ -35,7 +35,7 @@ matches:
       - Molecular_Biology
       - molbio
       - agp
-    cbio:
+    CBio:
       - cbio
       - bio
       - biocore
@@ -79,6 +79,16 @@ matches:
     Shilatifard:
       - ash
       - Shilatifard
+    Yu:
+      - cry
+      - yu
+      - Yu
+    Xie:
+      - tgx
+      - Xie
+    Abmayr:
+      - sma
+      - Abmayr
 
 
 category_dir: c
