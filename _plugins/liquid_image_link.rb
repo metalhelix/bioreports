@@ -12,13 +12,13 @@ module Jekyll
             if key and value
               @options[key.strip.to_sym] = value.strip
             else
-              puts "ERROR: invalid option for image_link"
+              puts "ERROR: invalid option for image_link #{@image}"
               puts $2
             end
           end
         end
       else
-        puts "ERROR: invalid input for image_link"
+        puts "ERROR: invalid input for image_link #{@image}"
         puts text
       end
     end
